@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Misión Espacial: Las Guardianas del Universo</title>
+<style>
+:root{
+  --panel:#fbf8ff;--panel2:#efe8ff;--ink:#2b1a55;--ink2:#5d4f86;--edge:#cdbcff;
+  --pink:#ff5fa8;--pinkD:#d23f86;--cyan:#2fd0ea;--cyanD:#1499b3;--gold:#ffc94a;--goldD:#cf951a;
+  --ok:#1fa872;--okbg:#e2f8ee;--oops:#ff6f62;--oopsbg:#fff0ec;--glow:rgba(120,90,255,.35);
+  --fd:"Arial Rounded MT Bold","Hiragino Maru Gothic ProN","Varela Round","Trebuchet MS",system-ui,sans-serif;
+  --fb:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--panel:#1e1748;--panel2:#2b2264;--ink:#f6f1ff;--ink2:#c4b7ee;--edge:#5b4aae;--okbg:#17463f;--oopsbg:#4c2441;color-scheme:dark}}
+:root[data-theme="dark"]{--panel:#1e1748;--panel2:#2b2264;--ink:#f6f1ff;--ink2:#c4b7ee;--edge:#5b4aae;--okbg:#17463f;--oopsbg:#4c2441;color-scheme:dark}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:var(--fb);color:var(--ink);line-height:1.45;overflow-x:hidden;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;background:#120b33;
+ background-image:radial-gradient(ellipse 60% 50% at 15% 20%,rgba(255,95,168,.32),transparent 70%),radial-gradient(ellipse 55% 45% at 85% 30%,rgba(47,208,234,.28),transparent 70%),radial-gradient(ellipse 70% 60% at 50% 100%,rgba(140,90,255,.38),transparent 70%),linear-gradient(180deg,#120b33,#1d1250 60%,#120b33);background-attachment:fixed}
+.d{font-family:var(--fd);font-weight:700;letter-spacing:.01em}
+p{margin:.3em 0}
+button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer;touch-action:manipulation}
+button:disabled{cursor:default}
+:focus-visible{outline:4px solid var(--cyan);outline-offset:3px;border-radius:14px}
+#sky{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.st{position:absolute;border-radius:50%;background:#fff;animation:tw 3s ease-in-out infinite}
+.st.sp{border-radius:0;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+@keyframes tw{0%,100%{opacity:.25}50%{opacity:1}}
+#scene{position:fixed;inset:0;z-index:0;opacity:0;transition:opacity .7s}
+#scene.on{opacity:1}
+#scene::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,11,51,.15),rgba(18,11,51,.45))}
+.scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+#app{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:12px 14px 48px}
+.ttl{color:#fff;font-family:var(--fd);text-shadow:0 0 18px rgba(255,95,168,.8),0 3px 0 #6a3fd0,0 6px 14px rgba(0,0,0,.4)}
+.panel{background:var(--panel);color:var(--ink);border-radius:24px;padding:18px;border:2px solid var(--edge);box-shadow:0 0 0 4px rgba(255,255,255,.06),0 0 30px var(--glow),0 14px 30px rgba(0,0,0,.3)}
+.btn{font-family:var(--fd);font-weight:700;font-size:1.08rem;min-height:56px;padding:12px 26px;border-radius:18px;background:linear-gradient(180deg,#ff7cbb,var(--pink));color:#fff;box-shadow:0 5px 0 var(--pinkD),0 0 18px rgba(255,95,168,.45);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--pinkD)}
+.btn.cy{background:linear-gradient(180deg,#5fe3f5,var(--cyan));color:#08324a;box-shadow:0 5px 0 var(--cyanD),0 0 18px rgba(47,208,234,.45)}
+.btn.gold{background:linear-gradient(180deg,#ffe08a,var(--gold));color:#4a2c00;box-shadow:0 5px 0 var(--goldD),0 0 18px rgba(255,201,74,.45)}
+.btn.ghost{background:var(--panel2);color:var(--ink);box-shadow:0 5px 0 var(--edge)}
+.btn:disabled{filter:grayscale(.8);opacity:.6;transform:none}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.row.c{justify-content:center}.row.e{justify-content:flex-end}
+.ibtn{width:50px;height:50px;border-radius:16px;background:var(--panel);border:2px solid var(--edge);display:grid;place-items:center;font-size:1.2rem;flex:none}
+.ibtn.on{border-color:var(--pink);box-shadow:0 0 12px rgba(255,95,168,.5)}
+.hero{display:block;width:100%;height:auto}
+.bar{height:12px;border-radius:999px;background:var(--panel2);border:1px solid var(--edge);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--c,var(--pink)),var(--c2,var(--gold)));transition:width .6s}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 12px;font-weight:800;font-size:.86rem;background:var(--panel2);border:2px solid var(--edge)}
+.chip.ok{border-color:var(--ok)}.chip.rev{border-color:var(--oops)}.chip.nd{opacity:.65}
+.muted{color:var(--ink2);font-weight:600}
+
+/* HUD */
+.hud{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.hc{display:inline-flex;align-items:center;gap:6px;background:var(--panel);border:2px solid var(--edge);border-radius:16px;padding:6px 12px;min-height:50px;font-weight:900}
+.hc small{font-weight:700;color:var(--ink2)}
+.hbtn{box-shadow:0 4px 0 var(--edge)}
+.hbtn:active{transform:translateY(3px);box-shadow:none}
+.grow{flex:1}
+.hi{width:24px;height:24px}
+.gm{width:22px;height:22px;display:block}
+@media (max-width:640px){.hc small{display:none}}
+
+/* Title */
+.title{min-height:calc(100vh - 70px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.shipfly{position:absolute;top:8%;left:-40%;width:min(320px,50vw);animation:fly 9s linear infinite}
+@keyframes fly{0%{left:-40%;transform:translateY(0) rotate(-4deg)}50%{transform:translateY(30px) rotate(2deg)}100%{left:110%;transform:translateY(-10px) rotate(-4deg)}}
+.logo{margin:0;font-size:clamp(1.4rem,4vw,2.2rem);letter-spacing:.2em}
+.logo2{margin:6px 0 0;font-size:clamp(2.3rem,8vw,5.2rem);line-height:1.02}
+.logo2 span{display:inline-block;animation:drop .7s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes drop{0%{transform:translateY(-80px) scale(.5);opacity:0}100%{transform:none;opacity:1}}
+.tgirls{display:flex;justify-content:center;gap:clamp(4px,2vw,22px);margin-top:16px;width:min(760px,96vw)}
+.tgirls>div{flex:1;max-width:170px;animation:floaty 4s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes floaty{50%{transform:translateY(-10px)}}
+.tag{display:inline-block;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:6px 16px;font-weight:700;margin-top:10px}
+
+/* Dialog */
+.dlg{min-height:calc(100vh - 80px);display:flex;flex-direction:column;justify-content:flex-end}
+.dstage{display:grid;grid-template-columns:minmax(150px,260px) 1fr;gap:16px;align-items:end}
+.dart{width:100%;max-width:260px;animation:pop .45s cubic-bezier(.2,1.5,.4,1)}
+.dart .quad{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.who{margin:0;font-size:1.15rem;color:var(--c)}
+.say{font-size:clamp(1.12rem,2.3vw,1.4rem);font-weight:800;margin:6px 0 2px}
+.bub{border-color:var(--c);box-shadow:0 0 0 4px rgba(255,255,255,.06),0 0 30px color-mix(in srgb,var(--c) 55%,transparent)}
+.ddots{display:flex;gap:6px;justify-content:center;margin-top:12px}
+.ddots span{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.3)}
+.ddots span.on{background:var(--pink)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:none;opacity:1}}
+@media (max-width:700px){.dstage{grid-template-columns:1fr}.dart{max-width:180px;margin:0 auto}}
+
+/* Selection */
+.sel{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:900px){.sel{grid-template-columns:1fr 1fr}}
+.scard{display:flex;flex-direction:column;align-items:center;text-align:center;border-color:var(--c);padding:12px;position:relative}
+.scard .fig{width:min(170px,100%);height:250px;display:flex;align-items:flex-end;justify-content:center}
+.scard .fig svg{height:100%;width:auto}
+.scard h3{margin:4px 0 0;color:var(--c);font-size:1.4rem}
+.scard .pers{font-weight:700;font-size:.92rem;min-height:3.8em}
+.scard.ready{box-shadow:0 0 0 4px var(--c),0 0 34px var(--c)}
+.rbtn{width:100%;margin-top:8px}
+.rbtn.on{background:var(--ok);box-shadow:0 5px 0 #127452}
+
+/* Ship */
+.ship{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;align-items:center}
+@media (max-width:820px){.ship{grid-template-columns:1fr}}
+.shipart{animation:hover 4s ease-in-out infinite}
+@keyframes hover{50%{transform:translateY(-10px)}}
+.flame{animation:flick .25s ease-in-out infinite alternate;transform-origin:right center}
+@keyframes flick{to{transform:scaleX(1.2);opacity:.8}}
+.rooms{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.room{display:flex;align-items:center;gap:12px;text-align:left;padding:14px;min-height:84px;border-radius:20px;background:var(--panel);border:2px solid var(--edge);box-shadow:0 5px 0 var(--edge),0 0 20px var(--glow)}
+.room:active{transform:translateY(3px);box-shadow:0 2px 0 var(--edge)}
+.room .ri{font-size:2rem;flex:none;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--panel2)}
+.room b{display:block;font-family:var(--fd);font-size:1.08rem}
+.room small{color:var(--ink2);font-weight:700}
+.room.big{grid-column:1/-1;background:linear-gradient(135deg,#ff7cbb,#8f6bff);color:#fff;border-color:#fff}
+.room.big small{color:#fff}
+.room.big .ri{background:rgba(255,255,255,.2)}
+.aria{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.aria .av{width:64px;flex:none}
+
+/* Map */
+.galaxy{position:relative;width:100%;aspect-ratio:16/10;border-radius:28px;overflow:hidden;border:2px solid rgba(255,255,255,.3);background:radial-gradient(ellipse at 30% 40%,rgba(255,95,168,.35),transparent 55%),radial-gradient(ellipse at 75% 65%,rgba(47,208,234,.3),transparent 55%),#140d3c;box-shadow:0 0 40px var(--glow)}
+.galaxy .route{position:absolute;inset:0;width:100%;height:100%}
+.route .pt{display:none}
+.planet{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:clamp(84px,14%,150px);display:flex;flex-direction:column;align-items:center;gap:4px;color:#fff;text-align:center}
+.planet .pa{width:100%;filter:drop-shadow(0 0 16px var(--c));transition:transform .2s}
+.planet:not(:disabled) .pa{animation:spinp 18s linear infinite}
+@keyframes spinp{50%{transform:scale(1.06)}}
+.planet b{font-family:var(--fd);font-size:clamp(.78rem,1.6vw,1rem);background:rgba(18,11,51,.75);border:1px solid var(--c);border-radius:12px;padding:3px 8px}
+.planet small{font-weight:800;font-size:.75rem;background:var(--c);color:#1a0f3e;border-radius:999px;padding:1px 8px}
+.planet:disabled{filter:grayscale(1) brightness(.55)}
+.planet.cur .pa{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.1);filter:drop-shadow(0 0 30px var(--c))}}
+.mapship{position:absolute;width:clamp(60px,9%,100px);left:var(--x);top:var(--y);transform:translate(-50%,-250%);transition:left 1s,top 1s;pointer-events:none}
+@media (max-width:760px) and (orientation:portrait){
+  .galaxy{aspect-ratio:3/4.4}
+  .planet{left:var(--px);top:var(--py);width:clamp(84px,24%,130px)}
+  .mapship{left:var(--px);top:var(--py)}
+  .route .ln{display:none}.route .pt{display:inline}
+}
+
+/* World */
+.whead{display:grid;grid-template-columns:140px 1fr;gap:16px;align-items:center}
+.whead .pa{width:140px;filter:drop-shadow(0 0 18px var(--c))}
+@media (max-width:600px){.whead{grid-template-columns:90px 1fr}.whead .pa{width:90px}}
+.mlist{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+@media (max-width:760px){.mlist{grid-template-columns:1fr}}
+.mcard{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;text-align:left;padding:14px;border-radius:20px;background:var(--panel);border:2px solid var(--edge);min-height:96px;box-shadow:0 5px 0 var(--edge)}
+.mcard .mn{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-family:var(--fd);font-size:1.4rem;background:var(--c);color:#fff}
+.mcard b{font-family:var(--fd);font-size:1.08rem;display:block}
+.mcard small{display:block;color:var(--ink2);font-weight:700}
+.mcard.next{border-color:var(--c);box-shadow:0 5px 0 var(--c),0 0 24px color-mix(in srgb,var(--c) 60%,transparent)}
+.mcard.done .mn{background:var(--ok)}
+.mcard.boss{grid-column:1/-1;background:linear-gradient(135deg,#2a1660,#4a1f6e);color:#fff;border-color:#ff7cbb}
+.mcard.boss small{color:#ffd3ea}
+.mcard.boss .mn{background:transparent;width:70px;height:70px}
+.mcard.side .mn{background:var(--gold);color:#4a2c00}
+.mcard:disabled{opacity:.55;box-shadow:none}
+
+/* Decision */
+.dec{max-width:820px;margin:0 auto}
+.dopts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+@media (max-width:700px){.dopts{grid-template-columns:1fr}}
+.dopt{text-align:left;padding:16px;border-radius:20px;background:var(--panel2);border:3px solid var(--edge);font-weight:800;font-size:1.05rem;min-height:90px;box-shadow:0 5px 0 var(--edge)}
+.dopt:active{transform:translateY(3px)}
+.dopt span{display:block;font-family:var(--fd);color:var(--pink);font-size:.9rem;margin-bottom:4px}
+
+/* Play */
+.play{display:grid;grid-template-columns:250px 1fr;gap:14px;align-items:start}
+.turn{border-radius:24px;padding:12px;text-align:center;background:linear-gradient(170deg,color-mix(in srgb,var(--c) 85%,#fff),color-mix(in srgb,var(--c2) 80%,#fff));color:#2b1a55;border:3px solid #fff;box-shadow:0 0 26px var(--c)}
+.turn .fig{height:270px;display:flex;justify-content:center;align-items:flex-end}
+.turn .fig svg{height:100%;width:auto}
+.turn.new .fig{animation:pop .5s cubic-bezier(.2,1.5,.4,1)}
+.turn .tl{margin:0;font-weight:900;font-size:.9rem}
+.turn .tn{margin:0;font-size:1.9rem;line-height:1.05;color:#fff;font-family:var(--fd);-webkit-text-stroke:6px #2b1a55;paint-order:stroke fill}
+.turn .tt{margin:0 0 6px;font-weight:900}
+.turn .eb{background:rgba(255,255,255,.85);border-radius:14px;padding:6px 10px;text-align:left;font-weight:800;font-size:.84rem}
+.turn .nx{margin:6px 0 0;font-size:.84rem;font-weight:800}
+@media (max-width:820px){
+ .play{grid-template-columns:1fr}
+ .turn{display:grid;grid-template-columns:88px 1fr;gap:10px;text-align:left;align-items:center;padding:8px 12px}
+ .turn .fig{height:130px}
+ .turn .tn{font-size:1.5rem}
+}
+.mhead{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+.pdots{display:flex;gap:7px}
+.pdots span{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5)}
+.pdots span.past{background:var(--gold);border-color:#fff}
+.pdots span.cur{background:var(--pink);border-color:#fff;transform:scale(1.25)}
+.mname{color:#fff;font-family:var(--fd);font-size:1.1rem;text-shadow:0 2px 6px rgba(0,0,0,.5)}
+.ctype{display:inline-flex;align-items:center;gap:6px;background:var(--c);color:#fff;border-radius:999px;padding:4px 12px;font-weight:900;font-size:.85rem}
+.q{font-size:clamp(1.2rem,2.6vw,1.6rem);font-weight:900;line-height:1.35;margin:10px 0 14px}
+.q.rid{font-style:italic}
+.hintb{border:3px dashed var(--cc,var(--pink));border-radius:16px;padding:10px 14px;margin:0 0 12px;font-weight:700;background:color-mix(in srgb,var(--cc,var(--pink)) 12%,var(--panel))}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opts.three{grid-template-columns:1fr 1fr 1fr}
+@media (max-width:640px){.opts,.opts.three{grid-template-columns:1fr}}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;min-height:74px;border-radius:20px;background:var(--panel2);border:3px solid var(--edge);font-size:1.06rem;font-weight:800;box-shadow:0 5px 0 var(--edge)}
+.opt:not(:disabled):active{transform:translateY(3px);box-shadow:0 1px 0 var(--edge)}
+.opt .lt{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--c);color:#fff;font-family:var(--fd);flex:none}
+.opt.ok{border-color:var(--ok);background:var(--okbg);box-shadow:0 5px 0 var(--ok)}
+.opt.ok .lt{background:var(--ok)}
+.opt.bad{border-color:var(--oops);background:var(--oopsbg);opacity:.7}
+.opt.bad .lt{background:var(--oops)}
+.opt.el{opacity:.3;text-decoration:line-through}
+.tfb{justify-content:center;font-family:var(--fd);font-size:1.4rem;min-height:96px}
+.slots{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.slot{display:flex;align-items:center;gap:10px;min-height:58px;border-radius:16px;border:3px dashed var(--edge);padding:6px 12px;font-weight:800;text-align:left;background:transparent}
+.slot .n{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:var(--c);color:#fff;font-family:var(--fd);flex:none}
+.slot.fill{border-style:solid;background:var(--panel2)}
+.slot.lock{border-color:var(--ok);background:var(--okbg)}
+.slot.badp{border-color:var(--oops)}
+.pool{display:flex;flex-wrap:wrap;gap:10px}
+.pitem{min-height:56px;padding:10px 16px;border-radius:16px;background:var(--panel2);border:3px solid var(--c);font-weight:800;box-shadow:0 4px 0 var(--edge)}
+.pitem:disabled{opacity:.25;box-shadow:none}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;align-items:start}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mcol h4{margin:0;color:var(--ink2);font-size:.85rem}
+.ml{text-align:left;min-height:60px;padding:8px 12px;border-radius:16px;border:3px solid var(--edge);background:var(--panel2);font-weight:800}
+.ml .as{display:block;font-size:.85rem;color:var(--c);font-weight:900}
+.ml.sel{border-color:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 30%,transparent)}
+.ml.lock{border-color:var(--ok);background:var(--okbg)}
+.ml.badp{border-color:var(--oops)}
+.mr{min-height:60px;padding:8px 12px;border-radius:16px;border:3px solid var(--c);background:var(--panel);font-weight:800;text-align:left}
+.mr:disabled{opacity:.35}
+.seqtxt{font-size:1.2rem;font-weight:800;line-height:2.4;margin:0 0 12px}
+.blank{display:inline-flex;align-items:center;justify-content:center;min-width:120px;min-height:46px;padding:2px 12px;margin:0 4px;border-radius:12px;border:3px dashed var(--c);vertical-align:middle;font-weight:900;background:var(--panel2)}
+.blank.lock{border:3px solid var(--ok);background:var(--okbg)}
+.blank.badp{border-color:var(--oops)}
+.fb{margin-top:14px;padding:14px 16px;border-radius:20px;border:3px solid var(--cc,var(--edge));background:var(--panel2);animation:pop .3s}
+.fb .ft{font-family:var(--fd);font-size:1.25rem}
+.fb.ok{border-color:var(--ok);background:var(--okbg)}.fb.ok .ft{color:var(--ok)}
+.fb.bad{border-color:var(--oops);background:var(--oopsbg)}.fb.bad .ft{color:var(--oops)}
+.fb p{font-weight:700}
+.fb .rec{border-top:2px dashed var(--edge);margin-top:8px;padding-top:8px}
+.powers{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+@media (max-width:900px){.powers{grid-template-columns:1fr 1fr}}
+.pw{display:grid;grid-template-columns:48px 1fr;gap:8px;align-items:center;text-align:left;padding:8px 10px;border-radius:18px;background:var(--panel);border:3px solid var(--c);min-height:72px}
+.pw:disabled{border-color:var(--edge);filter:saturate(.3);color:var(--ink2)}
+.pw:not(:disabled):active{transform:translateY(2px)}
+.pw b{display:block;font-size:.92rem;line-height:1.2}
+.pw small{display:block;font-size:.76rem;color:var(--ink2);font-weight:700;line-height:1.2}
+.dots{display:flex;gap:4px;margin-top:3px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--c);display:block}
+.dots i.off{background:var(--edge)}
+
+/* Boss */
+.arena{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-bottom:12px;padding:12px 16px;border-radius:24px;background:rgba(18,11,51,.72);border:2px solid rgba(255,124,187,.7);color:#fff;box-shadow:0 0 30px rgba(255,95,168,.35)}
+.bossart{width:150px}
+.bossart.hit{animation:hit .6s}
+@keyframes hit{15%{transform:translateX(-10px) rotate(-8deg);filter:brightness(2.5)}40%{transform:translateX(10px) rotate(6deg)}70%{transform:translateX(-5px)}}
+.hp{height:20px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden;margin:6px 0;border:1px solid rgba(255,255,255,.4)}
+.hp i{display:block;height:100%;background:linear-gradient(90deg,#ff7cbb,#a07cf0,#2fd0ea);transition:width .8s}
+.lineup{display:flex;gap:6px;margin-top:6px}
+.lu{width:58px;border-radius:14px;background:rgba(255,255,255,.12);border:2px solid transparent;padding:2px}
+.lu.on{border-color:var(--c);box-shadow:0 0 14px var(--c);background:rgba(255,255,255,.25)}
+@media (max-width:600px){.bossart{width:100px}.lu{width:44px}}
+.shake{animation:shk .5s}
+@keyframes shk{20%{transform:translate(-8px,4px)}40%{transform:translate(8px,-4px)}60%{transform:translate(-5px,2px)}80%{transform:translate(4px,0)}}
+.beam{position:fixed;height:16px;border-radius:999px;transform-origin:0 50%;background:linear-gradient(90deg,#fff,var(--c),#fff);box-shadow:0 0 20px var(--c),0 0 40px var(--c);animation:beam .7s ease-out forwards;pointer-events:none;z-index:70}
+@keyframes beam{0%{transform:rotate(var(--a)) scaleX(0);opacity:1}55%{transform:rotate(var(--a)) scaleX(1);opacity:1}100%{transform:rotate(var(--a)) scaleX(1);opacity:0}}
+.wave{position:fixed;inset:0;pointer-events:none;z-index:70;background:radial-gradient(circle at 80% 20%,rgba(120,40,200,.6),transparent 60%);animation:wave .6s ease-out forwards}
+@keyframes wave{from{opacity:1}to{opacity:0}}
+.dmg{position:fixed;font-family:var(--fd);font-size:2.4rem;color:#fff;-webkit-text-stroke:6px var(--pink);paint-order:stroke fill;animation:up 1.1s ease-out forwards;z-index:71;transform:translate(-50%,-50%);pointer-events:none}
+@keyframes up{to{transform:translate(-50%,-180%);opacity:0}}
+
+/* Results */
+.res{max-width:880px;margin:0 auto;text-align:center}
+.res h1{margin:0;font-size:clamp(1.6rem,4.4vw,2.4rem);color:var(--pink)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+@media (max-width:640px){.stats{grid-template-columns:1fr 1fr}}
+.stat{border-radius:18px;background:var(--panel2);border:2px solid var(--edge);padding:10px}
+.stat b{display:block;font-family:var(--fd);font-size:1.8rem;color:var(--pink)}
+.stat span{font-weight:800;font-size:.86rem;color:var(--ink2)}
+.gains{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+@media (max-width:700px){.gains{grid-template-columns:1fr 1fr}}
+.gain{border:3px solid var(--c);border-radius:18px;padding:8px;display:flex;flex-direction:column;align-items:center;font-weight:800}
+.gain .pf{width:76px}
+.gain .up{font-size:.78rem;background:color-mix(in srgb,var(--c) 22%,var(--panel));border-radius:10px;padding:3px 8px;margin-top:4px}
+.meter{display:flex;align-items:center;gap:10px;justify-content:center;margin:8px 0}
+.meter .bar{width:min(320px,60vw);height:18px}
+.reward{width:180px;margin:6px auto;filter:drop-shadow(0 0 26px var(--c));animation:float3 3s ease-in-out infinite}
+@keyframes float3{50%{transform:translateY(-10px) rotate(5deg)}}
+.big-emoji{font-size:4rem;line-height:1}
+
+/* Crew / inventory / shop / report */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tab{padding:8px 16px;min-height:48px;border-radius:14px;border:3px solid var(--c);font-weight:900;background:var(--panel)}
+.tab.on{background:var(--c);color:#fff}
+.crew{display:grid;grid-template-columns:240px 1fr;gap:16px;align-items:start}
+@media (max-width:700px){.crew{grid-template-columns:1fr}.crew .fig{max-width:200px;margin:0 auto}}
+.crew .fig{border-radius:22px;background:linear-gradient(170deg,var(--c),var(--c2));padding:10px;border:3px solid #fff}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:8px 0}
+.kv dt{font-weight:900;color:var(--ink2)}.kv dd{margin:0;font-weight:700}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:700px){.grid3{grid-template-columns:1fr 1fr}}
+.item{border-radius:18px;background:var(--panel2);border:2px solid var(--edge);padding:12px;text-align:center}
+.item .ie{font-size:2.2rem}
+.item b{display:block}
+.item small{display:block;color:var(--ink2);font-weight:700}
+.item.off{opacity:.45}
+.toggle{min-height:48px;padding:8px 14px;border-radius:14px;border:3px solid var(--edge);font-weight:900;background:var(--panel)}
+.toggle.on{border-color:var(--ok);background:var(--okbg)}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:760px){.rgrid{grid-template-columns:1fr}}
+.rcard{border:3px solid var(--c);border-radius:20px;padding:12px;background:var(--panel)}
+.rcard h3{margin:0;color:var(--c)}
+.rhead{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center}
+.lvlbadge{display:inline-block;border-radius:999px;padding:2px 10px;font-weight:900;font-size:.85rem;background:var(--c);color:#fff}
+
+/* Modal & fx */
+.modal{position:fixed;inset:0;z-index:40;background:rgba(10,5,35,.6);display:grid;place-items:center;padding:16px}
+.modal .panel{max-width:560px;width:100%}
+#toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:min(94vw,560px)}
+.toast{background:var(--panel);color:var(--ink);border:3px solid var(--c,var(--pink));border-radius:18px;padding:10px 16px;font-weight:900;box-shadow:0 8px 22px rgba(0,0,0,.35);animation:toast 3.4s forwards;text-align:center}
+@keyframes toast{0%{opacity:0;transform:translateY(20px)}8%,85%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-10px)}}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.pt{position:absolute;margin:-7px 0 0 -7px;background:var(--pc);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation:ptk .95s ease-out forwards}
+@keyframes ptk{to{transform:translate(var(--dx),var(--dy)) rotate(200deg) scale(.2);opacity:0}}
+.plus{position:absolute;transform:translate(-50%,-50%);font-family:var(--fd);font-size:2rem;color:#fff;-webkit-text-stroke:6px var(--ok);paint-order:stroke fill;animation:up 1.2s ease-out forwards}
+.cf{position:absolute;top:-20px;width:12px;height:16px;background:var(--pc);border-radius:3px;animation:fall linear forwards}
+@keyframes fall{to{transform:translate(var(--rx),110vh) rotate(720deg)}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="scene" aria-hidden="true"></div>
+<div id="sky" aria-hidden="true"></div>
+<main id="app"></main>
+<div id="toasts" aria-live="polite"></div>
+<div id="fx" aria-hidden="true"></div>
+<script>
+const HEROES=[
+ {key:'catu',name:'Catu',title:'Guardiana Lunar',pers:'Valiente, curiosa y decidida. Siempre se anima a dar el primer paso.',power:'Radar lunar',powerDesc:'Muestra una pista antes de responder.',c1:'#ff6fb5',c2:'#d9def2',skin:'#ffe6d6',hair:'#ad8056',hairS:'#835b38',eye:'#e0569f',eyeD:'#7a1f5a',back:'long',bangs:'jag',emblem:'moon',hairDesc:'Pelo castaño claro y largo'},
+ {key:'lupe',name:'Lupe',title:'Guardiana Cristal',pers:'Creativa, inteligente y observadora. Encuentra detalles que nadie ve.',power:'Escudo de cristal',powerDesc:'Si se equivocan en este desafío, no pierden vida.',c1:'#27bfd6',c2:'#8af0d8',skin:'#ffe2cf',hair:'#a77a52',hairS:'#7c5534',eye:'#2cb3c9',eyeD:'#0d4f63',back:'shoulder',bangs:'fringe',emblem:'gem',hairDesc:'Pelo castaño claro, largo hasta los hombros'},
+ {key:'rufi',name:'Rufi',title:'Guardiana Estelar',pers:'Audaz, energética y estratégica. Siempre tiene un plan.',power:'Destello estelar',powerDesc:'Resuelve una parte del desafío o elimina una opción.',c1:'#9b6cf0',c2:'#f5c64e',skin:'#f3d2b8',hair:'#3b2418',hairS:'#1f120a',eye:'#9b6cf0',eyeD:'#3b1a7a',back:'wavy',bangs:'wavy',emblem:'star',hairDesc:'Pelo oscuro, largo y con ondas'},
+ {key:'emma',name:'Emma',title:'Guardiana Solar',pers:'Analítica, ingeniosa y tranquila. Piensa antes de actuar.',power:'Calor solar',powerDesc:'Recupera una vida del equipo.',c1:'#ff9a3c',c2:'#ffdf4f',skin:'#fde0cc',hair:'#2a1f1d',hairS:'#120c0b',eye:'#f08a1e',eyeD:'#7a3a05',back:'mid',bangs:'part',emblem:'sun',hairDesc:'Pelo oscuro y lacio, a la altura de las manos'}
+];
+const CONCEPTS={
+ geo:['Geosfera','La parte sólida de la Tierra: rocas, minerales, suelo y el interior del planeta (corteza, manto y núcleo).'],
+ hidro:['Hidrosfera','Toda el agua del planeta: océanos, ríos, lagos, glaciares, aguas subterráneas y vapor.'],
+ atmo:['Atmósfera','La capa de gases que rodea la Tierra. Tiene nitrógeno y oxígeno, nos protege y en ella se forman nubes y vientos.'],
+ bio:['Biosfera','El conjunto de todos los seres vivos, que habitan en el suelo, en el agua y en el aire.'],
+ rel:['Relaciones entre subsistemas','Los cuatro subsistemas están conectados: lo que pasa en uno afecta a los otros.'],
+ estados:['Estados del agua','El agua puede estar sólida (hielo), líquida o gaseosa (vapor).'],
+ evap:['Evaporación','El agua líquida se calienta con el Sol y pasa a vapor.'],
+ cond:['Condensación','El vapor se enfría y se transforma en gotitas de agua líquida, como en las nubes.'],
+ prec:['Precipitación','El agua cae de las nubes como lluvia, nieve o granizo.'],
+ infesc:['Infiltración y escorrentía','Infiltración: el agua entra en el suelo. Escorrentía: el agua corre por la superficie.'],
+ acum:['Acumulación','El agua se junta en mares, lagos, ríos, glaciares y bajo tierra.'],
+ transp:['Transpiración','Las plantas liberan vapor de agua por sus hojas.'],
+ fusol:['Fusión y solidificación','Fusión: el hielo se derrite y pasa a líquido. Solidificación: el agua líquida se congela.'],
+ ciclo:['El ciclo completo del agua','El agua circula sin parar: se evapora, se condensa, precipita, escurre o se infiltra y se acumula.'],
+ sol:['El Sol','Es una estrella: produce luz y calor propios, que hacen posible la vida en la Tierra.'],
+ estrella:['Estrellas y planetas','Las estrellas tienen luz propia; los planetas y los satélites solo reflejan la luz.'],
+ orden:['Orden de los planetas','Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno.'],
+ tipos:['Planetas rocosos y gaseosos','Mercurio, Venus, Tierra y Marte son rocosos; Júpiter, Saturno, Urano y Neptuno son gigantes gaseosos.'],
+ satel:['Satélites naturales','Cuerpos que giran alrededor de un planeta, como la Luna alrededor de la Tierra.'],
+ menores:['Asteroides, cometas y planetas enanos','Asteroides: rocas que giran alrededor del Sol. Cometas: hielo y polvo que forman una cola. Planetas enanos: como Plutón.'],
+ rot:['Rotación','La Tierra gira sobre su propio eje y tarda unas 24 horas.'],
+ dianoche:['Día y noche','Por la rotación, la mitad de la Tierra que mira al Sol tiene día y la otra mitad, noche.'],
+ tras:['Traslación','La Tierra da una vuelta alrededor del Sol y tarda unos 365 días.'],
+ estac:['Estaciones del año','Por la inclinación del eje durante la traslación, los rayos del Sol llegan más o menos directos y cambian las estaciones.']
+};
+const mc=(c,q,o,e,h)=>({t:'mc',c,q,o,e,h}), rid=(c,q,o,e,h)=>({t:'rid',c,q,o,e,h}), sit=(c,q,o,e,h)=>({t:'sit',c,q,o,e,h});
+const tf=(c,q,a,e,h)=>({t:'tf',c,q,a,e,h}), ord=(c,q,items,e,h)=>({t:'ord',c,q,items,e,h}), mt=(c,q,pairs,e,h)=>({t:'match',c,q,pairs,e,h});
+const sq=(c,parts,ans,extra,e,h)=>({t:'seq',c,q:'Completá la frase con las palabras correctas.',parts,ans,extra,e,h});
+
+const WORLDS=[
+{key:'tierra',name:'La Tierra y sus subsistemas',short:'Tierra',color:'#4cc38a',crystal:'Cristal de la Tierra',item:['🧭','Brújula de la Geosfera','Señala siempre el camino de vuelta al suelo firme.'],medal:'Guardianas de la Tierra',
+ boss:{key:'golem',name:'Golem del Desequilibrio',intro:[['golem','¡Soy el Golem del Desequilibrio! Voy a separar rocas, agua, aire y vida para siempre.'],['catu','No podés: están todos conectados. ¡Te lo vamos a demostrar!']],defeat:'¡No puede ser! Los cuatro subsistemas siguen unidos…'},
+ arrive:[['aria','Llegamos a la Tierra. El Vacío Cósmico desordenó sus cuatro subsistemas.'],['golem','¡Rocas por un lado, agua por otro! Nadie va a recordar cómo se relacionan.'],['lupe','Miren: el río se llenó de barro. Algo está pasando en la orilla.']],
+ decision:{q:'Un río se llenó de barro porque se cayeron los árboles de la orilla. ¿Qué hacen primero?',a:['Plantar árboles para que sus raíces sostengan el suelo','¡Muy buena decisión! La biosfera (las raíces) protege a la geosfera (el suelo) del agua de la hidrosfera. El río se aclara y el Golem se debilita.',['🌱','Semilla de la biosfera','Hace crecer un bosque en segundos.']],b:['Limpiar el río y seguir viaje','El río quedó limpio… por un rato. Sin árboles, la lluvia vuelve a arrastrar el suelo. Las raíces de las plantas sostienen la tierra: la biosfera protege a la geosfera.']},
+ missions:[
+  {name:'Rocas que hablan',desc:'Geosfera e hidrosfera',pool:[
+   mc('geo','¿Qué subsistema está formado por rocas, minerales y suelo?',['Geosfera','Hidrosfera','Atmósfera','Biosfera'],'La geosfera es la parte sólida de la Tierra: rocas, minerales, suelo y todo el interior del planeta.','“Geo” quiere decir tierra.'),
+   tf('hidro','Los glaciares forman parte de la hidrosfera.',true,'¡Sí! El hielo de los glaciares es agua en estado sólido, y toda el agua del planeta forma la hidrosfera.','El hielo también es agua.'),
+   ord('geo','Ordená las capas de la Tierra desde la superficie hacia el centro.',['Corteza','Manto','Núcleo'],'La corteza es la capa de afuera, la que pisamos; debajo está el manto y en el centro, el núcleo.','La primera es la más delgada y la que pisamos.'),
+   mt(['geo','hidro','atmo','bio'],'Uní cada elemento con su subsistema.',[['Montaña','Geosfera'],['Río','Hidrosfera'],['Viento','Atmósfera'],['Hongo','Biosfera']],'Las rocas son geosfera, el agua es hidrosfera, el aire en movimiento es atmósfera y los seres vivos son biosfera.','Pensá si es roca, agua, aire o algo vivo.'),
+   mc('hidro','¿Dónde está guardada la mayor parte del agua dulce del planeta?',['En los glaciares y hielos polares','En los ríos','En las lagunas','En las nubes'],'La mayor parte del agua dulce está congelada en glaciares y en los hielos de los polos. Por eso es tan importante cuidarlos.','Está en estado sólido.')]},
+  {name:'Cielo y vida',desc:'Atmósfera y biosfera',pool:[
+   mc('atmo','¿Cuál es el gas más abundante del aire?',['Nitrógeno','Oxígeno','Dióxido de carbono','Vapor de agua'],'Aunque parezca raro, el gas más abundante es el nitrógeno. El oxígeno, que respiramos, está en segundo lugar.','No es el que respiramos para vivir.'),
+   tf('atmo','La atmósfera nos protege de parte de los rayos dañinos del Sol.',true,'¡Correcto! La atmósfera funciona como un escudo y además ayuda a mantener una temperatura adecuada.','Pensá en algo que funciona como un escudo.'),
+   tf('bio','Una piedra forma parte de la biosfera.',false,'La biosfera reúne solo a los seres vivos. La piedra no está viva: forma parte de la geosfera.','¿La piedra nace, crece y se reproduce?'),
+   rid('bio','Estoy en el suelo, en el agua y en el aire. Formo parte de todo lo que nace, crece y se reproduce. ¿Qué subsistema soy?',['Biosfera','Geosfera','Hidrosfera','Atmósfera'],'¡Es la biosfera! Los seres vivos habitan en los otros tres subsistemas.','“Bio” quiere decir vida.'),
+   mc('bio','¿Qué gas toman las plantas del aire para fabricar su alimento?',['Dióxido de carbono','Oxígeno','Nitrógeno','Helio'],'Las plantas toman dióxido de carbono y, con agua y luz del Sol, fabrican su alimento. Así liberan oxígeno.','Es el gas que soltamos al exhalar.')]},
+  {name:'Todo está conectado',desc:'Relaciones entre subsistemas',pool:[
+   sit('rel','Una planta toma agua del suelo con sus raíces y libera vapor por sus hojas. ¿Qué subsistemas participan?',['Biosfera, geosfera, hidrosfera y atmósfera','Solo la biosfera','Solo la hidrosfera y la atmósfera','Solo la geosfera'],'¡Los cuatro! La planta (biosfera) toma agua (hidrosfera) del suelo (geosfera) y la devuelve al aire (atmósfera).','Contá: planta, suelo, agua y aire.'),
+   sit('rel','Llueve fuerte sobre una ladera sin árboles y el agua arrastra el suelo. ¿Qué relación se muestra?',['La hidrosfera modifica la geosfera','La biosfera crea la atmósfera','La atmósfera se convierte en roca','La geosfera fabrica la lluvia'],'El agua de lluvia (hidrosfera) arrastra y desgasta el suelo (geosfera).','¿Quién mueve a quién?'),
+   tf('rel','Los subsistemas terrestres funcionan por separado y no se afectan entre sí.',false,'Al revés: están conectados y lo que pasa en uno cambia a los otros.','Acordate de la planta que toma agua del suelo.'),
+   mt('rel','Uní cada situación con los subsistemas que se relacionan.',[['Un pez nada en el mar','Biosfera e hidrosfera'],['El viento desgasta una roca','Atmósfera y geosfera'],['Un árbol libera oxígeno','Biosfera y atmósfera']],'En cada situación hay dos subsistemas que se afectan: así funciona la Tierra.','Buscá qué es vivo, qué es agua, qué es aire y qué es roca.'),
+   sq(['hidro','geo','bio'],['La lluvia es parte de la ',null,', moja el suelo de la ',null,' y ayuda a crecer a las plantas de la ',null,'.'],['hidrosfera','geosfera','biosfera'],['atmósfera'],'Lluvia, suelo y plantas: tres subsistemas trabajando juntos.','Agua, roca y vida, en ese orden.')]}
+ ],
+ side:{name:'Rescate en la laguna',desc:'Misión secundaria: ayudar a las ranas',reward:['🐸','Rana exploradora','La mascota de la nave. Croa cuando encuentra agua.'],pool:[
+   mc('atmo','En la laguna hay agua, ranas, piedras y aire. ¿Cuál pertenece a la atmósfera?',['El aire','Las ranas','Las piedras','El agua'],'El aire es una mezcla de gases y forma parte de la atmósfera.','Es invisible.'),
+   tf('hidro','Las aguas subterráneas también forman parte de la hidrosfera.',true,'La hidrosfera incluye toda el agua del planeta, también la que está bajo tierra.','Lo importante es qué es, no dónde está.'),
+   mc('geo','¿En qué capa de la Tierra vivimos?',['Corteza','Manto','Núcleo'],'Vivimos sobre la corteza, la capa más externa y delgada de la Tierra.','Es como la cáscara de una fruta.'),
+   rid('atmo','Soy invisible, me necesitás para respirar y cuando me muevo me llamás viento. ¿Quién soy?',['El aire de la atmósfera','El agua del río','El suelo','Una planta'],'¡El aire! Forma la atmósfera y su movimiento es el viento.','Lo respirás ahora mismo.')]},
+ bossPool:[
+   sit('rel','Un volcán lanza gases y cenizas al aire y la lava se enfría formando roca nueva. ¿Qué subsistemas cambian directamente?',['La geosfera y la atmósfera','Solo la hidrosfera','Solo la biosfera','Ninguno'],'La lava forma roca nueva (geosfera) y los gases llegan al aire (atmósfera).','Mirá adónde va la lava y adónde van los gases.'),
+   sit('rel','Los árboles de un bosque liberan oxígeno al aire. ¿Cómo se relacionan los subsistemas?',['La biosfera aporta gases a la atmósfera','La geosfera le da agua a la biosfera','La hidrosfera forma montañas','La atmósfera fabrica árboles'],'Los árboles (biosfera) liberan oxígeno, que pasa al aire (atmósfera).','Los árboles son seres vivos y el oxígeno es un gas.'),
+   mt(['geo','hidro','atmo','bio'],'Uní cada subsistema con su definición.',[['Geosfera','Rocas, minerales y suelo'],['Hidrosfera','Toda el agua del planeta'],['Atmósfera','Capa de gases que rodea la Tierra'],['Biosfera','Todos los seres vivos']],'¡Perfecto! Esas son las cuatro partes de nuestro planeta.','Geo: tierra. Hidro: agua. Bio: vida.'),
+   tf(['atmo','rel'],'Sin atmósfera no habría lluvias en la Tierra.',true,'Las nubes y la lluvia se forman en la atmósfera. Sin ella no habría ni aire ni lluvias.','¿Dónde se forman las nubes?'),
+   sit('rel','Un incendio quema parte de un bosque. ¿Qué subsistemas se ven afectados directamente?',['La biosfera, por los árboles y animales, y la atmósfera, por el humo','Solo la hidrosfera','Solo la geosfera','Ninguno'],'El fuego daña a los seres vivos (biosfera) y llena el aire de humo (atmósfera).','Pensá en los árboles y en el humo.'),
+   mc('rel','Durante años, el viento y la lluvia desgastan una montaña. ¿Qué subsistemas actúan sobre la geosfera?',['La atmósfera y la hidrosfera','Solo la biosfera','La biosfera y el núcleo','Ninguno'],'El viento (atmósfera) y la lluvia (hidrosfera) desgastan las rocas (geosfera).','¿De qué subsistema es el viento? ¿Y la lluvia?')]
+},
+{key:'agua',name:'El ciclo del agua',short:'Agua',color:'#3cb6e6',crystal:'Cristal del Agua',item:['💧','Gota eterna','Una gota que nunca se termina: siempre vuelve.'],medal:'Guardianas del Agua',
+ boss:{key:'sequia',name:'Reina de la Sequía',intro:[['sequia','¡El agua es mía! Ya no habrá nubes, ni lluvia, ni ríos.'],['lupe','El agua siempre vuelve: es un ciclo. ¡Vamos a repararlo!']],defeat:'El agua… siempre vuelve. Nunca pude atraparla.'},
+ arrive:[['aria','El ciclo del agua está roto: no hay nubes y los ríos se están secando.'],['sequia','Yo, la Reina de la Sequía, tapé el Sol con una nube de polvo. ¡Jo, jo!'],['emma','Si no hay Sol… pensemos qué etapa del ciclo se detiene.']],
+ decision:{q:'La Reina tapó el Sol con una nube de polvo. ¿Qué hacen?',a:['Despejar el cielo: sin el calor del Sol no hay evaporación','¡Exacto! El Sol es el motor del ciclo del agua. Con el cielo despejado el agua vuelve a evaporarse y la Reina pierde fuerza.',['🔆','Lente solar','Concentra la luz del Sol.']],b:['Exprimir las pocas nubes que quedan para sacar agua','Cayeron unas gotas… y se terminaron. Sin el calor del Sol no hay evaporación y no se forman nubes nuevas. El Sol es el motor del ciclo.']},
+ missions:[
+  {name:'El calor del Sol',desc:'Evaporación y estados del agua',pool:[
+   mc('evap','¿Qué aporta la energía que pone en marcha el ciclo del agua?',['El Sol','La Luna','Las rocas','El viento'],'El Sol calienta el agua de mares, ríos y lagos y la evapora: es el motor del ciclo.','Brilla y da calor.'),
+   mt('estados','Uní cada ejemplo con el estado del agua.',[['Cubito de hielo','Sólido'],['Gota de lluvia','Líquido'],['Vapor de agua en el aire','Gaseoso']],'El agua puede estar sólida, líquida o gaseosa.','El hielo es duro; el vapor no se ve.'),
+   sit('evap','Colgás la ropa mojada al sol y a la tarde está seca. ¿Qué pasó con el agua?',['Se evaporó y pasó al aire como vapor','Se convirtió en hielo','La absorbió la soga','Desapareció para siempre'],'El calor evaporó el agua. No desaparece: pasa al aire como vapor y sigue en el ciclo.','El agua nunca desaparece, cambia de estado.'),
+   tf('evap','Cuando el agua de mar se evapora, la sal sube con el vapor a las nubes.',false,'Solo se evapora el agua; la sal se queda en el mar. Por eso la lluvia es agua dulce.','¿La lluvia es salada?'),
+   mc('evap','¿Cómo se llama el paso del agua líquida a vapor?',['Evaporación','Condensación','Solidificación','Fusión'],'En la evaporación el agua líquida se calienta y se convierte en vapor.','Pensá en un charco al sol.')]},
+  {name:'Fábrica de nubes',desc:'Condensación y precipitación',pool:[
+   mc('cond','¿Cómo se llama el paso del vapor de agua a líquido?',['Condensación','Evaporación','Fusión','Infiltración'],'En la condensación el vapor se enfría y forma gotitas, como en las nubes.','Es lo contrario de la evaporación.'),
+   sit('cond','Sacás una botella fría de la heladera y por fuera se llena de gotitas. ¿Qué pasó?',['El vapor del aire se condensó al tocar la botella fría','La botella perdió agua por pequeños agujeros','El agua de adentro se evaporó','El vidrio se derritió'],'El vapor del aire se enfría al tocar la botella y se condensa: igual que en las nubes.','Las gotitas vienen del aire.'),
+   tf('cond','El vapor se condensa al subir porque arriba hace más frío.',true,'Cuanto más alto, más frío. El vapor se enfría, se condensa y forma nubes.','¿Hace frío en la cima de una montaña?'),
+   rid('prec','Caigo de las nubes: a veces soy agua, a veces bolitas de hielo y a veces copos blancos. ¿Cómo se llama lo que hago?',['Precipitación','Evaporación','Condensación','Transpiración'],'¡Precipitación! Puede ser lluvia, granizo o nieve.','Viene de arriba hacia abajo.'),
+   tf('prec','El rocío es una forma de precipitación porque cae de las nubes.',false,'El rocío no cae: se forma cuando el vapor del aire se condensa sobre el pasto frío.','¿Viste caer el rocío alguna vez?')]},
+  {name:'El viaje de la gota',desc:'Infiltración, escorrentía, acumulación, transpiración, fusión y solidificación',pool:[
+   mt(['infesc','transp','acum'],'Uní cada proceso con lo que pasa.',[['Infiltración','El agua entra en el suelo'],['Escorrentía','El agua corre por la superficie'],['Transpiración','Las plantas liberan vapor por las hojas'],['Acumulación','El agua se junta en mares, lagos y bajo tierra']],'Esos son los caminos del agua después de llover.','“Infiltrar” es meterse adentro.'),
+   mc('fusol','Ponés agua en el congelador y se hace hielo. ¿Qué cambio de estado ocurrió?',['Solidificación','Fusión','Evaporación','Condensación'],'El agua líquida se enfría mucho y pasa a sólida: solidificación.','Pasa a ser sólida.'),
+   sit('infesc','En una ciudad con mucho cemento y asfalto, ¿qué pasa con el agua de lluvia?',['Se infiltra menos y corre más por la superficie','Se infiltra más que en el campo','Se evapora antes de tocar el suelo','Se convierte en granizo'],'El cemento no deja pasar el agua: hay menos infiltración y más escorrentía.','¿Puede el agua atravesar el asfalto?'),
+   sit('fusol','En primavera la nieve de las montañas se derrite y crecen los ríos. ¿Qué procesos ocurren?',['Fusión y después escorrentía','Solidificación y después condensación','Evaporación y después solidificación','Condensación y después infiltración'],'La nieve se funde (fusión) y el agua baja por las laderas hasta los ríos (escorrentía).','Primero cambia de estado y después corre.'),
+   tf('transp','Las plantas también participan del ciclo del agua.',true,'Sí: toman agua con las raíces y liberan vapor por las hojas (transpiración).','Pensá en las hojas.')]}
+ ],
+ side:{name:'El glaciar dormido',desc:'Misión secundaria: despertar el glaciar',reward:['❄️','Cristal de hielo','No se derrite nunca… es mágico.'],pool:[
+   mc('fusol','¿Cómo se llama el paso del hielo a agua líquida?',['Fusión','Solidificación','Condensación','Evaporación'],'En la fusión el hielo recibe calor y se derrite.','Pensá en un helado al sol.'),
+   tf('acum','La mayor parte del agua dulce del planeta está congelada en glaciares y hielos polares.',true,'¡Así es! Por eso los glaciares son enormes reservas de agua dulce.','Pensá en los polos.'),
+   mc('estados','¿En qué estado está el agua de un glaciar?',['Sólido','Líquido','Gaseoso'],'El glaciar es hielo: agua en estado sólido.','Es duro y frío.'),
+   sq('fusol',['El hielo se ',null,' y se vuelve agua líquida; si hace mucho frío, el agua se ',null,' y vuelve a ser hielo.'],['funde','solidifica'],['evapora','condensa'],'Fusión y solidificación son cambios opuestos.','Uno pasa a líquido y el otro a sólido.')]},
+ bossPool:[
+   ord('ciclo','Ordená lo que le pasa al agua del mar, empezando por la primera etapa.',['Evaporación','Condensación','Precipitación','Escorrentía'],'Se evapora, forma nubes, cae como lluvia y corre de nuevo hacia el mar.','Primero tiene que subir al aire.'),
+   sit('transp','Una gota cae en un bosque, se infiltra y la absorbe la raíz de un árbol. ¿Cómo vuelve al aire?',['Por transpiración, a través de las hojas','Por escorrentía','Por solidificación','Por precipitación'],'El árbol libera el agua como vapor por sus hojas: transpiración.','Sale por las hojas.'),
+   tf('ciclo','Si no hubiera evaporación, seguirían formándose nubes nuevas.',false,'Sin evaporación no llega vapor al aire, entonces no se forman nubes ni hay lluvias.','¿De qué están hechas las nubes?'),
+   sq(['evap','cond','prec'],['El Sol calienta el mar y el agua se ',null,'. El vapor sube, se enfría y se ',null,' formando nubes. Después el agua cae como ',null,'.'],['evapora','condensa','precipitación'],['solidifica','infiltración'],'¡Ese es el corazón del ciclo del agua!','Subir, enfriarse y caer.'),
+   mc('ciclo','¿Por qué decimos que el ciclo del agua es un “ciclo”?',['Porque el agua circula sin parar y vuelve a pasar por las mismas etapas','Porque el agua se termina después de llover','Porque pasa una sola vez por año','Porque el agua siempre está en el mismo lugar'],'Un ciclo no tiene fin: el agua se evapora, se condensa, cae y vuelve a empezar.','Pensá en una rueda que gira.'),
+   sit('cond','¿Qué tienen en común el rocío de la mañana y la formación de las nubes?',['En los dos el vapor se enfría y se condensa','En los dos se derrite hielo','Los dos son precipitación','Los dos pasan solo en el desierto'],'El rocío y las nubes se forman por condensación del vapor.','Es el mismo cambio de estado.')]
+},
+{key:'solar',name:'El Sistema Solar',short:'Sistema Solar',color:'#f5b942',crystal:'Cristal de las Estrellas',item:['🔭','Telescopio estelar','Permite ver planetas lejanos.'],medal:'Guardianas del Cosmos',
+ boss:{key:'devorador',name:'Devorador de Órbitas',intro:[['devorador','¡Ñam! Me comí el orden de los planetas. ¡Ahora todo está mezclado!'],['rufi','Tengo un plan: ¡los volvemos a poner en su lugar, uno por uno!']],defeat:'¡Aaay! Los planetas volvieron a sus órbitas…'},
+ arrive:[['aria','Entramos al Sistema Solar. Los planetas se salieron de sus órbitas.'],['devorador','Soy el Devorador de Órbitas. ¡Ya nadie sabe qué planeta va primero!'],['catu','¡Allá viene un cometa directo hacia la nave!']],
+ decision:{q:'Un cometa viene hacia la nave Aurora. ¿Qué hacen?',a:['Esquivarlo y estudiar su cola: se forma cuando el hielo se calienta cerca del Sol','¡Excelente! Los cometas son hielo, polvo y roca. Al acercarse al Sol el hielo se calienta y forma la cola. ARIA guardó el mapa de su recorrido.',['🗺️','Mapa de cometas','Muestra por dónde pasan los cometas.']],b:['Pedirle ayuda, porque seguro es una estrella amiga','El cometa pasó de largo sin responder… Los cometas no son estrellas: no tienen luz propia, son hielo, polvo y roca que brillan cerca del Sol.']},
+ missions:[
+  {name:'Nuestra estrella',desc:'El Sol, estrellas y planetas',pool:[
+   mc('sol','¿Qué es el Sol?',['Una estrella','Un planeta','Un satélite','Un cometa'],'El Sol es una estrella: una enorme esfera de gases muy calientes con luz propia.','Tiene luz propia.'),
+   tf('estrella','Las estrellas tienen luz propia y los planetas no.',true,'Las estrellas producen su luz; los planetas solo reflejan la luz de una estrella.','¿La Tierra brilla sola?'),
+   sit('estrella','La Luna brilla de noche. ¿Por qué?',['Porque refleja la luz del Sol','Porque tiene luz propia','Porque está hecha de fuego','Porque la iluminan las nubes'],'La Luna no tiene luz propia: refleja la luz del Sol, como un espejo.','Funciona como un espejo.'),
+   mt(['estrella','satel','menores'],'Uní cada cuerpo celeste con lo que es.',[['Sol','Estrella'],['Tierra','Planeta'],['Luna','Satélite natural'],['Plutón','Planeta enano']],'Cada cuerpo celeste tiene su categoría.','Plutón ya no es considerado un planeta común.'),
+   mc('sol','¿Por qué el Sol es tan importante para la vida en la Tierra?',['Porque nos da luz y calor','Porque forma las montañas','Porque crea el agua salada','Porque hace girar a la Luna'],'Su luz y su calor permiten que las plantas fabriquen alimento y que funcione el ciclo del agua.','Sin él todo estaría oscuro y helado.')]},
+  {name:'Planetas en fila',desc:'Orden y tipos de planetas',pool:[
+   ord('orden','Ordená estos planetas del más cercano al más lejano del Sol.',['Mercurio','Venus','Tierra','Marte'],'Los cuatro planetas interiores son Mercurio, Venus, Tierra y Marte.','La Tierra es el tercero.'),
+   ord('orden','Ordená estos planetas del más cercano al más lejano del Sol.',['Júpiter','Saturno','Urano','Neptuno'],'Después de Marte vienen Júpiter, Saturno, Urano y Neptuno.','Neptuno es el último.'),
+   mt('tipos','Clasificá cada planeta: ¿rocoso o gaseoso?',[['Marte','Rocoso'],['Júpiter','Gaseoso'],['Venus','Rocoso'],['Saturno','Gaseoso']],'Los cuatro primeros planetas son rocosos; los cuatro últimos son gigantes gaseosos.','Los más cercanos al Sol son de roca.'),
+   tf('tipos','Júpiter es un planeta rocoso, igual que la Tierra.',false,'Júpiter es un gigante gaseoso, el planeta más grande del Sistema Solar.','Es enorme y está lejos del Sol.'),
+   mc('orden','¿Cuántos planetas tiene el Sistema Solar?',['Ocho','Nueve','Siete','Diez'],'Son ocho: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno.','Plutón ya no cuenta como planeta.')]},
+  {name:'Viajeros del espacio',desc:'Satélites, asteroides, cometas y planetas enanos',pool:[
+   mc('satel','¿Qué es un satélite natural?',['Un cuerpo que gira alrededor de un planeta, como la Luna','Una estrella pequeña','Un planeta sin aire','Un aparato construido por personas'],'Un satélite natural gira alrededor de un planeta. Los aparatos que lanzamos son satélites artificiales.','La Tierra tiene uno solo.'),
+   mc('menores','¿Qué es un cometa?',['Un cuerpo de hielo, polvo y roca que forma una cola al acercarse al Sol','Una estrella que explota','Un planeta enano','Un satélite de Júpiter'],'Los cometas son como bolas de nieve sucias que forman una cola brillante cerca del Sol.','Tiene cola.'),
+   mc('menores','¿Dónde está el cinturón de asteroides?',['Entre Marte y Júpiter','Entre la Tierra y la Luna','Después de Neptuno','Entre Mercurio y Venus'],'El cinturón de asteroides separa los planetas rocosos de los gigantes gaseosos.','Separa los rocosos de los gaseosos.'),
+   tf('menores','Plutón dejó de girar alrededor del Sol y por eso es un planeta enano.',false,'Plutón sigue girando alrededor del Sol. Es planeta enano porque es muy pequeño y comparte su zona con muchos otros cuerpos.','¿Dejó de moverse?'),
+   rid('menores','Soy una roca que gira alrededor del Sol. Somos muchísimas y muchas vivimos entre Marte y Júpiter. ¿Qué somos?',['Asteroides','Cometas','Satélites','Estrellas'],'¡Asteroides! Rocas de distintos tamaños que giran alrededor del Sol.','Forman un cinturón.')]}
+ ],
+ side:{name:'El cometa perdido',desc:'Misión secundaria: guiar al cometa',reward:['☄️','Fragmento de cometa','Un trocito de hielo espacial.'],pool:[
+   tf('menores','La cola de un cometa se forma cuando se acerca al Sol.',true,'El calor del Sol calienta el hielo del cometa y así se forma la cola.','El calor tiene algo que ver.'),
+   mc('tipos','¿Cuál es el planeta más grande del Sistema Solar?',['Júpiter','Saturno','Tierra','Neptuno'],'Júpiter es gigante: adentro entrarían más de mil Tierras.','Es el quinto planeta.'),
+   mc('tipos','¿Qué planeta es famoso por sus enormes y brillantes anillos?',['Saturno','Marte','Mercurio','Venus'],'Saturno tiene los anillos más grandes y visibles, formados por hielo y roca.','Es el sexto planeta.'),
+   mc('tipos','¿Cuál es el planeta más caliente del Sistema Solar?',['Venus','Mercurio','Marte','Júpiter'],'Venus es el más caliente porque su atmósfera espesa atrapa el calor, aunque Mercurio esté más cerca del Sol.','No es el más cercano al Sol.')]},
+ bossPool:[
+   ord('orden','Ordená del más cercano al más lejano del Sol.',['Tierra','Marte','Júpiter','Saturno','Neptuno'],'El orden completo es Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno.','Marte va justo después de la Tierra.'),
+   sit('orden','¿Por qué Urano y Neptuno son planetas muy fríos?',['Porque están muy lejos del Sol y les llega poco calor','Porque no tienen satélites','Porque giran muy rápido','Porque son rocosos'],'Cuanto más lejos del Sol, menos luz y calor reciben.','Pensá en la distancia al Sol.'),
+   mt(['menores','satel','estrella'],'Uní cada cuerpo con su característica.',[['Cometa','Forma una cola cerca del Sol'],['Asteroide','Roca que gira alrededor del Sol'],['Satélite','Gira alrededor de un planeta'],['Estrella','Tiene luz propia']],'¡Cada viajero del espacio tiene su característica!','La cola es del más helado.'),
+   tf('sol','El Sol es la estrella más cercana a la Tierra.',true,'¡Sí! Las demás estrellas están muchísimo más lejos, por eso se ven como puntitos.','¿Qué estrella vemos de día?'),
+   sit('estrella','Una astronauta ve un cuerpo que brilla con luz propia y produce mucho calor. ¿Qué es?',['Una estrella','Un planeta','Un satélite','Un asteroide'],'Solo las estrellas producen su propia luz y calor.','Luz propia…'),
+   mc('tipos','¿Qué tiene la Tierra que la hace especial entre los planetas que conocemos?',['Agua líquida en su superficie y seres vivos','Anillos enormes','Es el planeta más grande','Es el más cercano al Sol'],'La Tierra está a la distancia justa del Sol para tener agua líquida y vida.','Acordate del ciclo del agua.')]
+},
+{key:'mov',name:'Los movimientos de la Tierra',short:'Movimientos',color:'#9b6cf0',crystal:'Cristal del Tiempo',item:['⏳','Reloj de las estaciones','Marca el día, la noche y las estaciones.'],medal:'Guardianas del Tiempo',
+ boss:{key:'tiempo',name:'Señor del Tiempo Detenido',intro:[['tiempo','¡Detuve la Tierra! Ya no habrá días, noches ni estaciones.'],['emma','Pensemos con calma: sabemos cómo se mueve la Tierra. ¡Vamos!']],defeat:'¡Mi reloj… vuelve a funcionar! La Tierra gira otra vez.'},
+ arrive:[['aria','La Tierra dejó de girar: de un lado siempre es de día y del otro, siempre de noche.'],['tiempo','Soy el Señor del Tiempo Detenido. ¡Congelé todos los relojes!'],['rufi','Si entendemos los movimientos de la Tierra, podemos ponerla en marcha.']],
+ decision:{q:'La Tierra quedó quieta. ¿Qué empujan para que vuelva a haber día y noche?',a:['A la Tierra, para que vuelva a girar sobre su eje','¡Bien pensado! La rotación de la Tierra produce el día y la noche. La Tierra empieza a girar y el Señor del Tiempo se tambalea.',['⚙️','Engranaje terrestre','Una pieza del gran reloj de la Tierra.']],b:['Al Sol, para que gire alrededor de la Tierra','El Sol no se movió… No es el Sol el que gira alrededor de la Tierra: es la Tierra la que rota sobre su eje y produce el día y la noche.']},
+ missions:[
+  {name:'El trompo terrestre',desc:'Rotación, día y noche',pool:[
+   mc('rot','¿Cómo se llama el movimiento de la Tierra al girar sobre sí misma?',['Rotación','Traslación','Eclipse'],'La rotación es el giro de la Tierra sobre su propio eje, como un trompo.','Como un trompo.'),
+   mc('rot','¿Cuánto tarda la Tierra en dar una vuelta completa sobre sí misma?',['Unas 24 horas','Un año','Un mes','Una semana'],'Una rotación dura aproximadamente 24 horas: un día.','Lo que duran un día y una noche juntos.'),
+   tf('dianoche','El día y la noche se producen por la rotación de la Tierra.',true,'Mientras la Tierra rota, una mitad mira al Sol (día) y la otra queda a oscuras (noche).','Pensá en el trompo.'),
+   sit('dianoche','Cuando en Argentina es de día, en Japón, del otro lado del planeta, es de noche. ¿Por qué?',['Porque la Tierra rota y solo la mitad que mira al Sol está iluminada','Porque Japón está más cerca de la Luna','Porque el Sol se apaga sobre Japón','Porque en Japón hay más nubes'],'La luz del Sol ilumina solo la mitad de la Tierra que lo mira. Con la rotación, eso va cambiando.','Una pelota iluminada por una linterna.'),
+   rid('rot','Giro como un trompo y nunca me mareo. Cada vuelta mía dura un día entero. ¿Qué movimiento soy?',['Rotación','Traslación','Evaporación'],'¡Rotación! Una vuelta sobre su eje en unas 24 horas.','Un día entero…')]},
+  {name:'La gran vuelta',desc:'Traslación',pool:[
+   mc('tras','¿Cómo se llama el movimiento de la Tierra alrededor del Sol?',['Traslación','Rotación','Condensación'],'La traslación es la vuelta de la Tierra alrededor del Sol.','Es un viaje largo alrededor del Sol.'),
+   mc('tras','¿Cuánto tarda la Tierra en dar una vuelta completa alrededor del Sol?',['Unos 365 días','24 horas','Un mes','Diez años'],'La traslación dura unos 365 días: un año.','De cumpleaños a cumpleaños.'),
+   tf('tras','Mientras la Tierra se traslada alrededor del Sol, también sigue rotando.',true,'¡Sí! Los dos movimientos ocurren a la vez.','¿Deja de haber días durante el año?'),
+   mt(['rot','tras','estac'],'Uní cada movimiento con lo que produce.',[['Rotación','El día y la noche'],['Traslación','El año'],['Traslación con el eje inclinado','Las estaciones']],'Cada movimiento tiene su efecto.','La vuelta corta da días; la larga, años.'),
+   sit('tras','Una chica cumplió 10 años. ¿Cuántas vueltas completas dio la Tierra alrededor del Sol desde que nació?',['10','365','24','120'],'Cada traslación dura un año, así que en 10 años la Tierra dio 10 vueltas.','Una vuelta por año.')]},
+  {name:'El secreto de las estaciones',desc:'Inclinación del eje y estaciones',pool:[
+   mc('estac','¿Por qué existen las estaciones del año?',['Por la inclinación del eje de la Tierra mientras gira alrededor del Sol','Porque la Tierra se acerca y se aleja mucho del Sol','Porque el Sol se apaga en invierno','Porque la Luna tapa al Sol'],'El eje inclinado hace que los rayos lleguen más directos o más inclinados durante el año.','La Tierra está un poco “torcida”.'),
+   tf('estac','Las estaciones se producen porque la Tierra se acerca y se aleja mucho del Sol.',false,'Las estaciones se deben a la inclinación del eje terrestre, no a la distancia al Sol.','Pensá en el eje.'),
+   sit('estac','Cuando en Argentina es verano, ¿qué estación es en España, en el hemisferio norte?',['Invierno','Verano','Primavera','Otoño'],'Los hemisferios tienen estaciones opuestas por la inclinación del eje.','Son opuestas.'),
+   ord('estac','Ordená las estaciones empezando por el verano.',['Verano','Otoño','Invierno','Primavera'],'Después del verano viene el otoño, luego el invierno y la primavera.','Las hojas caen después del verano.'),
+   mc('estac','En verano, los días son…',['Más largos que las noches','Más cortos que las noches','Siempre de 12 horas exactas'],'En verano el Sol está más tiempo en el cielo: los días son más largos.','Pensá a qué hora oscurece en enero.')]}
+ ],
+ side:{name:'La noche más larga',desc:'Misión secundaria: encender el amanecer',reward:['🏮','Linterna de medianoche','Ilumina las noches largas.'],pool:[
+   tf('estac','En invierno los rayos del Sol llegan más inclinados y calientan menos.',true,'Los rayos inclinados reparten su calor en más superficie y calientan menos.','Pensá en una linterna inclinada.'),
+   mc('rot','Si la Tierra no rotara, ¿qué pasaría?',['Un lado tendría día y el otro noche durante muchísimo tiempo','No habría estaciones','La Luna dejaría de brillar','Habría dos soles'],'Sin rotación no habría el cambio de día y noche cada 24 horas.','Pensá en qué produce la rotación.'),
+   sq(['rot','tras'],['La Tierra tarda unas ',null,' horas en rotar y unos ',null,' días en dar una vuelta alrededor del Sol.'],['24','365'],['7','30'],'Un día y un año: los dos movimientos de la Tierra.','Un día tiene… horas.'),
+   mc('estac','El eje sobre el que gira la Tierra está…',['Inclinado','Perfectamente vertical','Cambiando de lugar cada día'],'El eje está inclinado y por eso hay estaciones.','Por eso hay estaciones.')]},
+ bossPool:[
+   mt(['rot','tras','estac'],'Uní cada concepto con su dato.',[['Rotación','Unas 24 horas'],['Traslación','Unos 365 días'],['Estaciones','Eje inclinado y traslación']],'¡Así funcionan los movimientos de la Tierra!','La rotación es la vuelta corta.'),
+   sit('dianoche','Al amanecer parece que el Sol “sale” por el este. ¿Qué se mueve en realidad?',['La Tierra, que rota','El Sol, que gira alrededor de la Tierra','La Luna','Las nubes'],'Parece que el Sol se mueve, pero es la Tierra la que rota.','Es como cuando el tren arranca y parece que se mueve la estación.'),
+   tf('estac','Cuando en el hemisferio sur es verano, en el hemisferio norte también es verano.',false,'Las estaciones son opuestas: si en el sur es verano, en el norte es invierno.','Opuestas…'),
+   ord('tras','Ordená de menor a mayor duración.',['Una rotación de la Tierra','Una semana','Una traslación de la Tierra'],'Una rotación dura un día, una semana tiene 7 días y la traslación, unos 365.','Un día, una semana, un año.'),
+   mc('estac','En enero, en Argentina es…',['Verano','Invierno','Otoño','Primavera'],'En enero es verano en el hemisferio sur: ¡vacaciones!','Época de vacaciones.'),
+   rid('tras','Doy una vuelta enorme alrededor del Sol, tardo un año entero y, gracias a mi eje inclinado, traigo las estaciones. ¿Qué movimiento soy?',['Traslación','Rotación','Precipitación'],'¡Traslación! La vuelta de un año alrededor del Sol.','Dura un año.')]
+},
+{key:'final',name:'La gran misión final',short:'Final',color:'#ff5fa8',crystal:'Núcleo del Universo',item:['🌌','Núcleo del Universo','La energía que mantiene todo en equilibrio.'],medal:'Salvadoras del Universo',
+ boss:{key:'vacio',name:'El Vacío Cósmico',intro:[['vacio','Así que llegaron hasta acá… Veamos si recuerdan TODO lo que aprendieron.'],['aria','Usen los cuatro cristales. Las preguntas mezclan todos los mundos.']],defeat:'¡Imposible! El conocimiento… llena el vacío…'},
+ arrive:[['aria','Llegamos al centro de la galaxia. Acá se esconde El Vacío Cósmico.'],['vacio','Ningún planeta tiene energía cerca de mí. ¡Ni ustedes!'],['catu','Tenemos los cuatro cristales. ¡Vamos por la última misión!']],
+ decision:{q:'El Vacío propone: “Que pelee una sola guardiana”. ¿Qué responden?',a:['Peleamos las cuatro juntas','¡Eso es! Juntas suman todos sus conocimientos. Los cuatro cristales brillan más fuerte que nunca.',['🤝','Lazo de las guardianas','La amistad que las une.']],b:['Que vaya la que tiene más puntos','El Vacío quería separarlas… ¡Era una trampa! Las guardianas se dan cuenta a tiempo y deciden enfrentarlo juntas.']},
+ missions:[
+  {name:'La puerta del Vacío',desc:'Repaso de todos los mundos',pool:[
+   mt(['geo','cond','menores','rot'],'Uní cada concepto con el mundo donde lo aprendieron.',[['Geosfera','La Tierra y sus subsistemas'],['Condensación','El ciclo del agua'],['Cometa','El Sistema Solar'],['Rotación','Los movimientos de la Tierra']],'¡Recorrieron toda la galaxia!','Pensá en cada planeta del mapa.'),
+   tf(['evap','dianoche'],'El Sol es el motor del ciclo del agua y, gracias a la rotación de la Tierra, nos da el día.',true,'El Sol evapora el agua y, mientras la Tierra rota, ilumina la mitad que lo mira.','El Sol aparece en los dos mundos.'),
+   sit('fusol','Un glaciar se derrite por el calor del Sol. ¿Qué cambio de estado ocurre?',['Fusión','Solidificación','Condensación','Evaporación'],'El hielo pasa a líquido: fusión.','De sólido a líquido.'),
+   mc(['atmo','orden'],'Un planeta sin atmósfera está muy lejos del Sol. ¿Cómo será probablemente?',['Muy frío y sin lluvias','Muy caliente y con lluvias','Lleno de seres vivos','Con océanos de agua líquida'],'Lejos del Sol llega poco calor, y sin atmósfera no hay nubes ni lluvias.','Lejos del Sol y sin aire…'),
+   ord(['estrella','tipos'],'Ordená del más pequeño al más grande.',['Luna','Tierra','Júpiter','Sol'],'La Luna es más chica que la Tierra, Júpiter es el planeta más grande y el Sol es muchísimo más grande que todos.','La estrella es la más grande.')]}
+ ],
+ side:null,
+ bossPool:[
+   sit(['fusol','orden'],'La Tierra tiene agua líquida por su distancia al Sol. Si estuviera tan lejos como Neptuno, ¿qué pasaría con sus océanos?',['Se congelarían','Se evaporarían por completo','Se volverían más salados','No cambiaría nada'],'Tan lejos del Sol hace muchísimo frío: el agua se solidificaría.','Lejos del Sol hace frío.'),
+   sq(['rel','transp','cond'],['Los árboles, que son parte de la ',null,', liberan vapor hacia la ',null,', y ese vapor se ',null,' formando nubes.'],['biosfera','atmósfera','condensa'],['geosfera','evapora'],'Subsistemas y ciclo del agua, ¡todo conectado!','Primero los seres vivos, después el aire.'),
+   tf('satel','La Luna es un planeta porque gira alrededor de la Tierra.',false,'La Luna es un satélite natural: gira alrededor de un planeta, no del Sol directamente.','¿Alrededor de qué gira?'),
+   mc('rot','Si la Tierra dejara de rotar, ¿qué dejaría de pasar como lo conocemos?',['La sucesión del día y la noche cada 24 horas','La lluvia','La existencia de montañas','El agua salada del mar'],'La rotación produce el día y la noche.','Pensá en el trompo.'),
+   ord('ciclo','Ordená el viaje de una gota desde la nube hasta el mar.',['Precipitación','Escorrentía','Acumulación'],'Cae de la nube, corre por la superficie y se junta en el mar.','Primero tiene que caer.'),
+   mt('rel','Uní cada situación con los subsistemas que se relacionan.',[['Volcán en erupción','Geosfera y atmósfera'],['Lluvia que arrastra el suelo','Hidrosfera y geosfera'],['Pez en el mar','Biosfera e hidrosfera']],'Los subsistemas siempre se relacionan.','Buscá roca, agua, aire y vida.'),
+   rid('tipos','No tengo luz propia, giro alrededor de una estrella, soy rocosa y tengo agua líquida y vida. ¿Quién soy?',['La Tierra','Marte','La Luna','El Sol'],'¡La Tierra, nuestro hogar!','Vivís en ella.'),
+   sit('estac','Una guardiana viaja en enero desde Buenos Aires a Canadá, en el hemisferio norte. ¿Qué ropa debe llevar?',['Ropa de invierno','Malla y protector solar','Ropa de verano'],'En enero es verano en el sur e invierno en el norte.','Estaciones opuestas.'),
+   tf('cond','Las nubes están formadas por vapor de agua invisible.',false,'Las nubes son gotitas de agua y cristalitos de hielo: el vapor ya se condensó.','Si fuera invisible, ¿podríamos ver las nubes?')]
+}
+];
+const BOSS_HP=[6,6,6,6,8];
+
+const INTRO=[
+ ['narr','Año 2126. La nave Aurora vigila la galaxia desde las estrellas.'],
+ ['narr','Pero algo oscuro despertó: El Vacío Cósmico. Donde pasa, los planetas pierden su energía.'],
+ ['vacio','Sin energía no hay equilibrio… ¡y sin equilibrio, el universo será mío!'],
+ ['narr','En la Tierra, los subsistemas se desordenan, el ciclo del agua se interrumpe y los planetas se salen de sus órbitas.'],
+ ['aria','Alerta: necesito tripulación. Soy ARIA, la inteligencia de la nave Aurora.'],
+ ['aria','Elegí a cuatro amigas que saben mucho de Ciencias Naturales. Ellas serán las Guardianas del Universo.'],
+ ['catu','¿Nosotras? ¡Claro que sí! Yo me animo primera.'],
+ ['lupe','Primero miremos bien qué está pasando. Siempre hay una pista escondida.'],
+ ['rufi','Tengo un plan: cada una usa su poder en el momento justo.'],
+ ['emma','Si pensamos con calma, vamos a encontrar cada respuesta.'],
+ ['aria','Entonces preséntense en el puente de mando. ¡La misión comienza!']
+];
+const BOARD=[
+ ['aria','¡Tripulación completa! Van a jugar por turnos: Catu, Lupe, Rufi y Emma.'],
+ ['aria','Cada misión tiene 3 vidas. Si se equivocan, les doy una pista y pueden volver a intentarlo.'],
+ ['aria','Bienvenidas a la nave Aurora. Desde acá van al mapa galáctico, revisan el inventario, compran mejoras en el taller y leen la bitácora.']
+];
+const FAIL=[['aria','La misión se interrumpió, pero las guardianas no se rinden. Repasen lo que cuesta y vuelvan a intentarlo.']];
+const CHEERS=['¡Brillante!','¡Energía cargada!','¡Excelente, guardiana!','¡Perfecto!','¡Así se hace!','¡Qué genia!'];
+const ENCOURAGE=['¡Casi! Así se aprende.','No pasa nada, sigamos pensando.','Todavía no… ¡probá otra vez!','Las guardianas aprenden de cada error.'];
+const SHOP=[
+ {id:'recarga',e:'⚡',name:'Recarga de poderes',desc:'Un uso más del poder de cada guardiana.',price:60,kind:'cons'},
+ {id:'escudo',e:'🛡️',name:'Escudo de nave',desc:'La próxima misión empieza con 4 vidas.',price:40,kind:'cons'},
+ {id:'visor',e:'🎧',name:'Visor estelar',desc:'Un visor futurista para las cuatro.',price:80,kind:'gear'},
+ {id:'capa',e:'🧣',name:'Capa nebulosa',desc:'Una capa con brillo de nebulosa.',price:120,kind:'gear'},
+ {id:'alas',e:'🪽',name:'Alas holográficas',desc:'Alas de luz para volar entre planetas.',price:160,kind:'gear'}
+];
+const UNLOCKS={2:'Insignia de piloto',3:'Un uso extra de su poder en cada mundo',4:'Aura estelar en su traje',5:'Título de Guardiana legendaria'};
+const TYPE_LABEL={mc:'Opción múltiple',tf:'Verdadero o falso',ord:'Ordenar',match:'Unir conceptos',rid:'Acertijo',seq:'Completar la secuencia',sit:'Situación problemática'};
+let uid=0;
+function emblem(t,x,y,r,fill,stroke){
+ const st=stroke?` stroke="${stroke}" stroke-width="1.3" stroke-linejoin="round"`:'';
+ if(t==='moon')return `<path d="M${x+r*.25} ${y-r} A${r} ${r} 0 0 0 ${x+r*.25} ${y+r} A${r*.55} ${r} 0 0 1 ${x+r*.25} ${y-r}Z" fill="${fill}"${st} transform="rotate(-20 ${x} ${y})"/>`;
+ if(t==='star'){const p=[];for(let k=0;k<10;k++){const a=-Math.PI/2+k*Math.PI/5,rr=k%2?r*.45:r;p.push((x+Math.cos(a)*rr).toFixed(1)+','+(y+Math.sin(a)*rr).toFixed(1));}return `<polygon points="${p.join(' ')}" fill="${fill}"${st}/>`;}
+ if(t==='sun'){let s='';for(let k=0;k<8;k++){const a=k*Math.PI/4;s+=`<line x1="${(x+Math.cos(a)*r*.6).toFixed(1)}" y1="${(y+Math.sin(a)*r*.6).toFixed(1)}" x2="${(x+Math.cos(a)*r).toFixed(1)}" y2="${(y+Math.sin(a)*r).toFixed(1)}" stroke="${fill}" stroke-width="${(r*.22).toFixed(1)}" stroke-linecap="round"/>`;}return s+`<circle cx="${x}" cy="${y}" r="${r*.5}" fill="${fill}"${st}/>`;}
+ return `<polygon points="${x},${y-r} ${x+r*.72},${y} ${x},${y+r} ${x-r*.72},${y}" fill="${fill}"${st}/>`;
+}
+const HAIRBACK={
+ long:'M38 58 C34 20 106 20 102 58 L108 170 C94 178 46 178 32 170Z',
+ mid:'M38 58 C34 20 106 20 102 58 L106 146 C94 153 46 153 34 146Z',
+ shoulder:'M37 60 C33 22 107 22 103 60 L106 106 C102 114 94 114 90 108 L50 108 C46 114 38 114 34 106Z',
+ wavy:'M38 58 C33 20 107 20 102 58 C110 72 100 84 108 98 C116 112 104 124 112 138 C118 152 106 162 110 172 C94 180 46 180 30 172 C34 162 22 152 28 138 C36 124 24 112 32 98 C40 84 30 72 38 58Z'
+};
+const BANGS={
+ jag:'M37 62 C35 32 57 25 70 27 C83 25 105 32 103 62 C99 50 93 45 88 42 L84 53 L77 42 L70 51 L63 41 L57 53 L52 42 C46 46 41 53 37 62Z',
+ wavy:'M37 62 C35 32 57 25 70 27 C83 25 105 32 103 62 C100 54 96 48 92 46 Q88 55 82 48 Q76 57 70 48 Q64 57 58 48 Q52 55 48 46 C44 48 40 54 37 62Z',
+ part:'M37 66 C34 32 60 24 70 28 C80 24 106 32 103 66 C100 50 90 38 72 34 L70 37 L68 34 C50 38 40 50 37 66Z',
+ fringe:'M37 62 C35 30 105 30 103 62 L103 52 Q98 56 94 51 Q89 57 84 51 Q79 57 74 51 Q69 57 64 51 Q59 57 54 51 Q49 57 44 51 Q40 55 37 52Z'
+};
+function face(h,ex,u){
+ const ln='#3f2550';let s='';
+ const open=x=>`<ellipse cx="${x}" cy="66" rx="8.6" ry="10.6" fill="#fff"/><ellipse cx="${x}" cy="67.5" rx="7.1" ry="9.1" fill="url(#${u}e)"/><ellipse cx="${x}" cy="68" rx="3.5" ry="5" fill="#2b1540"/><circle cx="${x-2.6}" cy="62.8" r="2.9" fill="#fff"/><circle cx="${x+2.8}" cy="71.8" r="1.4" fill="#fff"/><path d="M${x-10} 61 Q${x} 52 ${x+10} 60" stroke="${ln}" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M${x+(x<70?-9.5:9.5)} 60.5 l${x<70?-3.5:3.5} -3" stroke="${ln}" stroke-width="2" stroke-linecap="round"/>`;
+ const closed=x=>`<path d="M${x-8} 68 Q${x} 59 ${x+8} 68" stroke="${ln}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+ if(ex==='happy')s+=closed(57)+closed(83);else s+=open(57)+open(83);
+ const br={smile:['M51 50 Q57 47 63 50','M77 50 Q83 47 89 50'],happy:['M51 49 Q57 46 63 49','M77 49 Q83 46 89 49'],worried:['M51 51 L63 47','M77 47 L89 51'],surprised:['M51 47 Q57 43 63 47','M77 47 Q83 43 89 47'],determined:['M51 47 L63 51','M77 51 L89 47']}[ex]||['M51 50 Q57 47 63 50','M77 50 Q83 47 89 50'];
+ s+=`<path d="${br[0]} ${br[1]}" stroke="${ln}" stroke-width="1.8" fill="none" opacity=".75" stroke-linecap="round"/>`;
+ s+=`<ellipse cx="48" cy="77" rx="5.5" ry="2.8" fill="#ff7fa8" opacity=".5"/><ellipse cx="92" cy="77" rx="5.5" ry="2.8" fill="#ff7fa8" opacity=".5"/>`;
+ if(ex==='happy')s+=`<path d="M61 79 Q70 92 79 79Z" fill="#c4416c"/><ellipse cx="70" cy="85.5" rx="4" ry="2.2" fill="#ff9db5"/>`;
+ else if(ex==='surprised')s+=`<ellipse cx="70" cy="83" rx="4" ry="5" fill="#c4416c"/>`;
+ else if(ex==='worried')s+=`<path d="M64 84 Q67 81 70 84 Q73 87 76 84" stroke="#b03e64" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M100 46 q-4 7 0 9 q4 -2 0 -9Z" fill="#8fd6ff"/>`;
+ else if(ex==='determined')s+=`<path d="M63 82 Q70 86 77 82" stroke="#b03e64" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+ else s+=`<path d="M64 81 Q70 87 76 81" stroke="#b03e64" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+ return s;
+}
+function arms(h,pose,skin){
+ const arm=(d,hx,hy)=>`<path d="${d}" stroke="${h.c1}" stroke-width="12" stroke-linecap="round" fill="none"/><circle cx="${hx}" cy="${hy}" r="6.6" fill="#fff" stroke="${h.c1}" stroke-width="2"/>`;
+ const L={idle:arm('M50 110 Q38 128 40 148',40,151),cheer:arm('M50 110 Q36 92 34 72',34,68),cast:arm('M50 110 Q38 128 40 148',40,151)}[pose];
+ const R={idle:arm('M90 110 Q102 128 100 148',100,151),cheer:arm('M90 110 Q104 92 106 72',106,68),cast:arm('M90 110 Q108 112 122 104',125,102)}[pose];
+ let s=L+R;
+ if(pose==='cast')s+=`<circle cx="129" cy="100" r="11" fill="${h.c2}" opacity=".9"/><circle cx="129" cy="100" r="6" fill="#fff"/>`;
+ if(pose==='cheer')s+=emblem('star',20,52,6,h.c2)+emblem('star',120,50,6,h.c2);
+ return s;
+}
+function heroSVG(i,o){
+ o=o||{};const h=HEROES[i],u='h'+(uid++),pose=o.pose||'idle',ex=o.expr||'smile',g=o.gear||{},skin=h.skin;
+ const vb=o.crop?'24 14 92 92':'0 0 140 230';
+ let s=`<svg class="hero" viewBox="${vb}" aria-hidden="true"><defs><linearGradient id="${u}e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${h.eyeD}"/><stop offset="1" stop-color="${h.eye}"/></linearGradient><radialGradient id="${u}a"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".55" stop-color="${h.c2}" stop-opacity=".55"/><stop offset="1" stop-color="${h.c2}" stop-opacity="0"/></radialGradient><linearGradient id="${u}w" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ff3ff"/><stop offset=".5" stop-color="#ffb3e0"/><stop offset="1" stop-color="#d9c4ff"/></linearGradient></defs>`;
+ if(o.aura)s+=`<ellipse cx="70" cy="118" rx="70" ry="112" fill="url(#${u}a)"/>`;
+ if(g.alas)s+=`<g fill="url(#${u}w)" opacity=".75" stroke="#fff" stroke-width="1.5"><path d="M56 116 C20 96 6 64 14 40 C32 60 44 74 60 104Z"/><path d="M84 116 C120 96 134 64 126 40 C108 60 96 74 80 104Z"/><path d="M56 124 C24 126 8 110 6 94 C24 104 40 110 60 116Z"/><path d="M84 124 C116 126 132 110 134 94 C116 104 100 110 80 116Z"/></g>`;
+ if(g.capa)s+=`<path d="M50 104 L28 212 Q70 222 112 212 L90 104Z" fill="${h.c2}" stroke="#fff" stroke-width="2"/><g fill="#fff" opacity=".8"><circle cx="48" cy="180" r="1.8"/><circle cx="92" cy="170" r="1.5"/><circle cx="70" cy="200" r="1.8"/><circle cx="60" cy="150" r="1.2"/></g>`;
+ s+=`<path d="${HAIRBACK[h.back]}" fill="${h.hair}" stroke="${h.hairS}" stroke-width="1.6"/>`;
+ if(h.back==='wavy')s+=`<path d="M30 100 q8 10 0 20 q-7 10 1 20 M110 100 q-8 10 0 20 q7 10 -1 20" stroke="${h.hairS}" stroke-width="2" fill="none" opacity=".7"/>`;
+ // piernas y botas
+ s+=`<rect x="55" y="176" width="11" height="26" rx="5" fill="${skin}" stroke="#00000022"/><rect x="74" y="176" width="11" height="26" rx="5" fill="${skin}" stroke="#00000022"/>`;
+ s+=`<path d="M52 188 h16 v22 q0 7 -7 7 h-12 q-4 0 -4 -4 q0 -6 7 -8z" fill="#fff" stroke="${h.c1}" stroke-width="2.5"/><path d="M88 188 h-16 v22 q0 7 7 7 h12 q4 0 4 -4 q0 -6 -7 -8z" fill="#fff" stroke="${h.c1}" stroke-width="2.5"/><rect x="52" y="190" width="16" height="5" rx="2" fill="${h.c1}"/><rect x="72" y="190" width="16" height="5" rx="2" fill="${h.c1}"/>`;
+ // pollera
+ s+=`<path d="M49 148 L91 148 L101 182 Q70 190 39 182Z" fill="${h.c2}" stroke="#fff" stroke-width="2"/><path d="M58 152 L54 184 M70 152 L70 187 M82 152 L86 184" stroke="#fff" stroke-width="1.6" opacity=".7"/>`;
+ // cuello y torso
+ s+=`<rect x="63" y="86" width="14" height="18" rx="6" fill="${skin}"/>`;
+ s+=`<path d="M47 112 Q48 103 60 101 L80 101 Q92 103 93 112 L90 150 L50 150Z" fill="${h.c1}"/>`;
+ s+=`<path d="M58 100 L70 114 L82 100" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><path d="M53 118 L56 146 M87 118 L84 146" stroke="#fff" stroke-width="2" opacity=".75"/>`;
+ s+=`<rect x="48" y="145" width="44" height="8" rx="4" fill="#fff"/><circle cx="70" cy="128" r="8.5" fill="#ffd86b" stroke="#fff" stroke-width="2"/>`+emblem(h.emblem,70,128,5.5,h.c1);
+ s+=arms(h,pose,skin);
+ // cabeza
+ s+=`<ellipse cx="70" cy="60" rx="33" ry="32" fill="${skin}"/>`;
+ s+=face(h,ex,u);
+ s+=`<path d="${BANGS[h.bangs]}" fill="${h.hair}" stroke="${h.hairS}" stroke-width="1.5" stroke-linejoin="round"/>`;
+ s+=`<path d="M48 36 Q58 29 71 30" stroke="#fff" stroke-width="3" opacity=".45" fill="none" stroke-linecap="round"/>`;
+ s+=emblem(h.emblem,45,40,7,h.c2,'#fff');
+ if(g.visor)s+=`<path d="M38 42 Q70 26 102 42 L100 49 Q70 35 40 49Z" fill="${h.c2}" stroke="#fff" stroke-width="1.5"/><rect x="99" y="38" width="7" height="14" rx="3" fill="#fff" stroke="${h.c1}" stroke-width="2"/><line x1="103" y1="38" x2="108" y2="26" stroke="#fff" stroke-width="2"/><circle cx="108" cy="25" r="3" fill="${h.c1}"/>`;
+ return s+'</svg>';
+}
+function boss(k){
+ const w='<svg class="hero" viewBox="0 0 120 120" aria-hidden="true">';
+ if(k==='golem')return w+`<g fill="#7b7fa8"><ellipse cx="42" cy="18" rx="18" ry="11"/><ellipse cx="62" cy="13" rx="20" ry="12"/><ellipse cx="82" cy="19" rx="15" ry="10"/></g><path d="M62 24 L55 36 L63 36 L56 48" stroke="#ffe066" stroke-width="3.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/><path d="M18 114 L12 70 L26 40 L50 30 L74 30 L96 42 L108 72 L102 114Z" fill="#a1836a" stroke="#5e4636" stroke-width="3" stroke-linejoin="round"/><path d="M26 40 L40 56 M96 42 L82 58 M50 30 L56 44" stroke="#5e4636" stroke-width="3"/><path d="M15 100 Q30 88 40 100 Q50 90 62 100 L62 114 L17 114Z" fill="#6cc48a"/><path d="M36 61 L54 68 M84 61 L66 68" stroke="#3a2a20" stroke-width="4.5" stroke-linecap="round"/><ellipse cx="46" cy="75" rx="7" ry="6" fill="#c6ff7a"/><ellipse cx="74" cy="75" rx="7" ry="6" fill="#c6ff7a"/><circle cx="46" cy="76" r="2.6" fill="#2a1a10"/><circle cx="74" cy="76" r="2.6" fill="#2a1a10"/><path d="M46 93 L52 88 L58 94 L64 88 L70 93" stroke="#3a2a20" stroke-width="3" fill="none" stroke-linejoin="round"/></svg>`;
+ if(k==='sequia')return w+`<circle cx="60" cy="42" r="36" fill="#ffcf6b" opacity=".55"/><path d="M60 54 L20 116 L100 116Z" fill="#e07f3e" stroke="#8a3f1a" stroke-width="3" stroke-linejoin="round"/><path d="M44 84 L52 94 L47 106 M76 82 L69 95 L77 108 M60 70 L57 86" stroke="#8a3f1a" stroke-width="2.5" fill="none"/><path d="M34 36 C30 62 40 76 46 80 L74 80 C80 76 90 62 86 36Z" fill="#b5652e"/><ellipse cx="60" cy="50" rx="20" ry="22" fill="#f4cba1"/><path d="M40 32 L44 15 L50 27 L56 10 L60 25 L64 10 L70 27 L76 15 L80 32Z" fill="#f0ad40" stroke="#8a3f1a" stroke-width="2.5" stroke-linejoin="round"/><path d="M46 48 Q52 44 57 48 M63 48 Q68 44 74 48" stroke="#4a1f0a" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="52" cy="51" rx="3.5" ry="2.2" fill="#6a240a"/><ellipse cx="68" cy="51" rx="3.5" ry="2.2" fill="#6a240a"/><path d="M53 62 Q60 58 67 62" stroke="#8a3f1a" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>`;
+ if(k==='devorador')return w+`<ellipse cx="60" cy="62" rx="56" ry="14" fill="none" stroke="#ffb35c" stroke-width="4" stroke-dasharray="10 7" transform="rotate(-15 60 62)"/><circle cx="60" cy="60" r="38" fill="#3c2a7a" stroke="#ffb35c" stroke-width="3"/><circle cx="44" cy="40" r="6" fill="#2a1d5c"/><circle cx="80" cy="82" r="5" fill="#2a1d5c"/><path d="M38 52 L52 57 M82 52 L68 57" stroke="#ffb35c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="48" cy="62" rx="5" ry="4" fill="#ffe36b"/><ellipse cx="72" cy="62" rx="5" ry="4" fill="#ffe36b"/><path d="M40 74 Q60 96 80 74Z" fill="#1a1040"/><path d="M44 76 L48 82 L52 77 L56 84 L60 78 L64 84 L68 77 L72 82 L76 76" fill="#fff"/><circle cx="12" cy="24" r="6" fill="#4fa3ff"/><circle cx="108" cy="96" r="5" fill="#ff8a6b"/><circle cx="104" cy="20" r="4" fill="#f3d79a"/></svg>`;
+ if(k==='tiempo')return w+`<path d="M60 40 L18 116 L102 116Z" fill="#1f5a66" stroke="#7ff0e0" stroke-width="3" stroke-linejoin="round"/><g fill="none" stroke="#7ff0e0" stroke-width="2.5"><circle cx="34" cy="100" r="8"/><circle cx="86" cy="96" r="6"/></g><circle cx="60" cy="38" r="28" fill="#f4f1ff" stroke="#1f5a66" stroke-width="5"/><g stroke="#1f5a66" stroke-width="2.5" stroke-linecap="round"><line x1="60" y1="14" x2="60" y2="18"/><line x1="60" y1="58" x2="60" y2="62"/><line x1="36" y1="38" x2="40" y2="38"/><line x1="80" y1="38" x2="84" y2="38"/></g><path d="M48 32 L56 35 M72 32 L64 35" stroke="#2b1540" stroke-width="3" stroke-linecap="round"/><circle cx="51" cy="40" r="3" fill="#2b1540"/><circle cx="69" cy="40" r="3" fill="#2b1540"/><path d="M52 50 L68 50" stroke="#2b1540" stroke-width="2.5" stroke-linecap="round"/><path d="M60 38 L60 24 M60 38 L74 30" stroke="#ff5fa8" stroke-width="3" stroke-linecap="round"/></svg>`;
+ return w+`<defs><radialGradient id="vg${uid}"><stop offset="0" stop-color="#05020f"/><stop offset=".6" stop-color="#2a1050"/><stop offset="1" stop-color="#6a2fb0" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="url(#vg${uid++})"/><g fill="none" stroke="#b07cff" stroke-width="3" opacity=".7"><path d="M60 18 A42 42 0 0 1 102 60"/><path d="M96 84 A40 40 0 0 1 30 92"/><path d="M22 54 A38 38 0 0 1 48 22"/></g><path d="M34 52 L54 58 L50 66 L34 63Z M86 52 L66 58 L70 66 L86 63Z" fill="#ff5fa8"/><path d="M42 80 Q60 94 78 80" stroke="#ff5fa8" stroke-width="3.5" fill="none" stroke-linecap="round"/><g fill="#fff"><circle cx="14" cy="20" r="1.8"/><circle cx="104" cy="30" r="1.5"/><circle cx="96" cy="108" r="1.8"/><circle cx="18" cy="96" r="1.2"/></g></svg>`;
+}
+function ariaSVG(){return `<svg class="hero" viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="108" rx="34" ry="7" fill="#2fd0ea" opacity=".35"/><line x1="60" y1="20" x2="60" y2="8" stroke="#2fd0ea" stroke-width="3"/><circle cx="60" cy="7" r="5" fill="#ff5fa8"/><rect x="22" y="20" width="76" height="62" rx="26" fill="#e9fbff" stroke="#2fd0ea" stroke-width="4"/><rect x="32" y="32" width="56" height="38" rx="16" fill="#123056"/><path d="M42 52 Q48 44 54 52 M66 52 Q72 44 78 52" stroke="#5ff3ff" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M54 60 Q60 65 66 60" stroke="#ff8cc6" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M40 82 Q60 104 80 82" fill="#c9f6ff" stroke="#2fd0ea" stroke-width="3"/><circle cx="18" cy="52" r="6" fill="#ff5fa8"/><circle cx="102" cy="52" r="6" fill="#ff5fa8"/></svg>`;}
+function narrSVG(){return `<svg class="hero" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="46" fill="#8f6bff" opacity=".3"/>${emblem('star',60,60,34,'#ffe28a','#fff')}${emblem('star',96,24,9,'#fff')}${emblem('star',22,94,7,'#fff')}${emblem('star',100,94,5,'#fff')}</svg>`;}
+function shipSVG(){const u='sh'+(uid++);return `<svg class="hero" viewBox="-30 0 360 170" aria-hidden="true"><defs><linearGradient id="${u}" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#ffd86b"/><stop offset="1" stop-color="#ff5fa8" stop-opacity="0"/></linearGradient></defs><path class="flame" d="M34 70 L-24 60 Q-34 85 -24 110 L34 100Z" fill="url(#${u})"/><path d="M120 46 L150 8 L182 44Z" fill="#ff7cbb" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><path d="M120 124 L150 162 L182 126Z" fill="#8f6bff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><path d="M30 85 Q60 40 170 40 Q270 40 312 85 Q270 130 170 130 Q60 130 30 85Z" fill="#f6f1ff" stroke="#8f6bff" stroke-width="4"/><path d="M210 52 Q272 58 298 85 L210 85Z" fill="#7fe8ff" stroke="#fff" stroke-width="3"/><path d="M40 98 Q160 112 300 94" stroke="#ffc94a" stroke-width="5" fill="none"/>${HEROES.map((h,i)=>`<circle cx="${84+i*32}" cy="78" r="12" fill="${h.c1}" stroke="#fff" stroke-width="3"/>`).join('')}<text x="104" y="122" font-family="Arial Rounded MT Bold,sans-serif" font-size="13" fill="#8f6bff" font-weight="700">AURORA</text></svg>`;}
+function planetSVG(w){
+ const u='p'+(uid++),o=`<svg class="hero" viewBox="0 0 120 120" aria-hidden="true">`;
+ if(w===0)return o+`<circle cx="60" cy="60" r="46" fill="#3c8ff0"/><path d="M30 40 Q44 30 54 42 Q50 56 36 58 Q26 50 30 40Z M66 64 Q84 56 92 72 Q86 92 70 88 Q60 78 66 64Z M60 22 Q72 20 76 30 Q66 34 60 22Z" fill="#4cc38a"/><path d="M20 70 Q50 64 70 72" stroke="#fff" stroke-width="5" opacity=".7" fill="none" stroke-linecap="round"/><circle cx="60" cy="60" r="46" fill="none" stroke="#bfe6ff" stroke-width="3"/></svg>`;
+ if(w===1)return o+`<circle cx="60" cy="60" r="46" fill="#2fb5e6"/><path d="M16 62 Q30 54 44 62 T72 62 T104 62" stroke="#bff3ff" stroke-width="5" fill="none"/><path d="M20 78 Q34 70 48 78 T76 78 T102 78" stroke="#8be3ff" stroke-width="4" fill="none"/><g fill="#fff"><ellipse cx="44" cy="36" rx="16" ry="7"/><ellipse cx="56" cy="32" rx="10" ry="7"/></g><path d="M84 30 q-6 10 0 14 q6 -4 0 -14Z" fill="#e9fbff"/><circle cx="60" cy="60" r="46" fill="none" stroke="#c9f6ff" stroke-width="3"/></svg>`;
+ if(w===2)return o+`<circle cx="60" cy="60" r="40" fill="#ffc94a"/><circle cx="60" cy="60" r="30" fill="#ffe08a"/><ellipse cx="60" cy="60" rx="58" ry="14" fill="none" stroke="#fff1c4" stroke-width="5" transform="rotate(-18 60 60)"/><circle cx="14" cy="36" r="6" fill="#ff8a6b"/><circle cx="106" cy="86" r="7" fill="#4b6cf0"/></svg>`;
+ if(w===3)return o+`<ellipse cx="60" cy="60" rx="56" ry="20" fill="none" stroke="#c4a8ff" stroke-width="3" stroke-dasharray="6 6"/><g transform="rotate(-23 60 60)"><circle cx="60" cy="60" r="36" fill="#3c8ff0"/><path d="M60 24 A36 36 0 0 1 60 96Z" fill="#1d2a6b" opacity=".75"/><line x1="60" y1="14" x2="60" y2="106" stroke="#fff" stroke-width="3"/></g><path d="M40 46 Q50 40 56 50 Q50 58 42 56Z" fill="#4cc38a"/><path d="M104 54 l8 6 l-9 4" stroke="#fff" stroke-width="3" fill="none"/></svg>`;
+ return o+`<defs><radialGradient id="${u}"><stop offset="0" stop-color="#05020f"/><stop offset=".55" stop-color="#3a1478"/><stop offset="1" stop-color="#ff5fa8"/></radialGradient></defs><circle cx="60" cy="60" r="46" fill="url(#${u})"/><g fill="none" stroke="#ffb3e0" stroke-width="3"><path d="M60 22 A38 38 0 0 1 98 60"/><path d="M92 84 A36 36 0 0 1 32 88"/><path d="M24 54 A34 34 0 0 1 48 24"/></g><circle cx="60" cy="60" r="8" fill="#fff"/></svg>`;
+}
+function gemSVG(c){return `<svg class="gm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z" style="fill:${c||'rgba(255,255,255,.18)'}" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/><path d="M2 9h20M9 3l3 6 3-6M12 21 9 9M12 21l3-12" stroke="#fff" stroke-width=".9" fill="none" opacity=".7"/></svg>`;}
+function heartSVG(on){return `<svg class="hi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.4-4.5-9.9-9.2C.5 8.4 2.5 4 6.4 4c2.2 0 3.7 1.3 4.6 2.8C11.9 5.3 13.5 4 15.7 4c3.9 0 5.9 4.4 4.3 7.8C17.5 16.5 12 21 12 21z" style="fill:${on?'#ff5fa2':'var(--edge)'}" stroke="#fff" stroke-width="1.2"/></svg>`;}
+function starsSVG(n,w,h){let s='';for(let k=0;k<n;k++)s+=`<circle cx="${(k*137.5)%w}" cy="${(k*89.3+k*k*3)%h}" r="${1+(k%3)*.8}" fill="#fff" opacity="${.4+(k%4)*.15}"/>`;return s;}
+function sceneSVG(w){
+ const u='s'+(uid++),o=`<svg class="scene" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">`;
+ if(w===0)return o+`<defs><linearGradient id="${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5aa8f0"/><stop offset=".7" stop-color="#ffcde6"/></linearGradient></defs><rect width="1200" height="800" fill="url(#${u})"/><circle cx="980" cy="150" r="70" fill="#fff4b8"/><path d="M0 560 L180 330 L300 470 L460 250 L640 520 L800 360 L980 540 L1200 390 L1200 800 L0 800Z" fill="#8f7fe0"/><g fill="#fff"><path d="M180 330 L150 370 L170 362 L186 378 L200 360 L212 366Z"/><path d="M460 250 L420 304 L444 296 L462 314 L482 294 L500 302Z"/></g><path d="M0 650 C200 570 380 630 560 600 C760 570 900 650 1200 610 L1200 800 L0 800Z" fill="#5fc48d"/><path d="M640 730 C820 680 980 720 1200 690 L1200 800 L600 800Z" fill="#4cb6e0"/>${[90,160,230,340].map((x,k)=>`<rect x="${x-6}" y="${650+k%2*12}" width="12" height="40" fill="#8a5a44"/><circle cx="${x}" cy="${640+k%2*12}" r="${28+k%3*6}" fill="#38a96c"/>`).join('')}</svg>`;
+ if(w===1)return o+`<defs><linearGradient id="${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5cc9e6"/><stop offset=".75" stop-color="#e2f9ff"/></linearGradient></defs><rect width="1200" height="800" fill="url(#${u})"/><circle cx="1010" cy="120" r="62" fill="#fff2a8"/><path d="M0 430 L120 300 L210 380 L310 270 L430 450 L430 800 L0 800Z" fill="#effcff" stroke="#9fe3f2" stroke-width="5"/><path d="M760 310 L1200 260 L1200 800 L760 800Z" fill="#8f7fe0"/><rect x="800" y="306" width="92" height="420" fill="#c4f4ff"/><g fill="#fff"><ellipse cx="520" cy="170" rx="110" ry="40"/><ellipse cx="600" cy="140" rx="70" ry="44"/></g><g stroke="#5cc0e8" stroke-width="6" stroke-linecap="round"><line x1="470" y1="230" x2="460" y2="270"/><line x1="520" y1="240" x2="510" y2="280"/><line x1="570" y1="230" x2="560" y2="270"/></g><path d="M0 640 C150 610 300 670 450 640 C600 610 750 670 900 640 C1050 610 1150 660 1200 640 L1200 800 L0 800Z" fill="#3fb3e0"/><path d="M0 710 C150 690 300 730 450 710 C600 690 750 730 900 710 C1050 690 1150 720 1200 710 L1200 800 L0 800Z" fill="#2a92cf"/></svg>`;
+ if(w===2)return o+`<rect width="1200" height="800" fill="#1a1046"/>${starsSVG(70,1200,800)}<circle cx="60" cy="110" r="210" fill="#ffd45c" opacity=".2"/><circle cx="60" cy="110" r="150" fill="#ffd45c"/><circle cx="330" cy="420" r="30" fill="#4fa3ff"/><circle cx="440" cy="260" r="20" fill="#ff8a6b"/><circle cx="720" cy="560" r="96" fill="#f0b47c"/><g fill="#d98a52"><ellipse cx="720" cy="530" rx="92" ry="9"/><ellipse cx="720" cy="580" rx="88" ry="9"/></g><circle cx="1010" cy="260" r="58" fill="#f3d79a"/><ellipse cx="1010" cy="260" rx="112" ry="24" fill="none" stroke="#fff2c8" stroke-width="12" transform="rotate(-18 1010 260)"/><circle cx="1110" cy="650" r="38" fill="#4b6cf0"/><path d="M590 120 L800 40 L810 64Z" fill="#fff" opacity=".45"/><circle cx="590" cy="120" r="11" fill="#fff"/></svg>`;
+ if(w===3)return o+`<defs><linearGradient id="${u}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffd6a0"/><stop offset=".5" stop-color="#8f6bff"/><stop offset="1" stop-color="#140c3c"/></linearGradient></defs><rect width="1200" height="800" fill="url(#${u})"/>${starsSVG(40,1200,800).replace(/cx="(\d+(\.\d+)?)"/g,(m,x)=>`cx="${600+(+x)/2}"`)}<circle cx="120" cy="400" r="140" fill="#ffd45c"/><ellipse cx="640" cy="420" rx="420" ry="120" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="14 12" opacity=".6"/><g transform="rotate(-23 640 420)"><circle cx="640" cy="420" r="130" fill="#3c8ff0"/><path d="M640 290 A130 130 0 0 1 640 550Z" fill="#14205a" opacity=".8"/><line x1="640" y1="250" x2="640" y2="590" stroke="#fff" stroke-width="5"/></g></svg>`;
+ return o+`<defs><radialGradient id="${u}" cx=".5" cy=".45"><stop offset="0" stop-color="#05020f"/><stop offset=".4" stop-color="#2a0f5c"/><stop offset="1" stop-color="#ff5fa8"/></radialGradient></defs><rect width="1200" height="800" fill="url(#${u})"/>${starsSVG(60,1200,800)}<g fill="none" stroke="#ffb3e0" stroke-width="5" opacity=".5"><path d="M600 120 A240 240 0 0 1 840 360"/><path d="M820 500 A230 230 0 0 1 400 520"/><path d="M360 340 A220 220 0 0 1 520 140"/></g></svg>`;
+}
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const tags=ch=>Array.isArray(ch.c)?ch.c:[ch.c];
+const KEY='mision-espacial-guardianas-v1',SKEY='mision-espacial-sonido';
+let SND={music:false,sfx:true};
+try{const t=localStorage.getItem(SKEY);if(t)SND=Object.assign(SND,JSON.parse(t));}catch(e){}
+const saveSnd=()=>{try{localStorage.setItem(SKEY,JSON.stringify(SND));}catch(e){}};
+
+/* ===== Sonido (Web Audio, sin archivos externos) ===== */
+let AC=null,musT=null,ms=0;
+function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}}if(AC.state==='suspended')AC.resume();return AC;}
+function tone(f,t0,d,type,v){const a=ac();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.type=type||'triangle';o.frequency.value=f;const t=a.currentTime+t0;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v||.1,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g).connect(a.destination);o.start(t);o.stop(t+d+.05);}
+const SFX={ok:()=>[784,988,1175,1568].forEach((f,i)=>tone(f,i*.07,.4,'triangle',.11)),bad:()=>{tone(440,0,.25,'sine',.09);tone(349,.16,.4,'sine',.08);},click:()=>tone(1046,0,.06,'sine',.05),power:()=>{for(let i=0;i<9;i++)tone(600+i*130,i*.035,.22,'sine',.06);},lvl:()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,i*.06,.3,'square',.04)),beam:()=>{for(let i=0;i<10;i++)tone(1400-i*90,i*.025,.15,'sawtooth',.035);},hit:()=>{tone(110,0,.35,'square',.08);tone(80,.08,.4,'sine',.1);},win:()=>{[523,659,784,1047].forEach((f,i)=>tone(f,i*.12,.35,'triangle',.1));[523,659,784,1047].forEach(f=>tone(f,.55,1.4,'sine',.06));},coin:()=>{tone(1319,0,.08,'square',.04);tone(1760,.07,.15,'square',.04);}};
+const sfx=n=>{if(SND.sfx)try{SFX[n]();}catch(e){}};
+const MEL=[523,659,784,659,880,784,659,587,523,587,659,784,698,659,587,0,587,698,880,698,988,880,784,698,659,784,1047,988,880,784,659,0];
+function musicOn(){if(musT||!ac())return;musT=setInterval(()=>{const f=MEL[ms%MEL.length];if(f)tone(f,0,.3,'sine',.04);if(ms%8===0)tone([131,110,87,98][Math.floor(ms/8)%4],0,2.2,'triangle',.05);ms++;},280);}
+function musicOff(){clearInterval(musT);musT=null;}
+
+/* ===== Estado ===== */
+function fresh(){return{screen:'title',ready:[false,false,false,false],players:HEROES.map(()=>({xp:0,charges:2,first:0,fixed:0,wrong:0,streak:0,best:0,medals:[],powers:0,cons:{}})),turn:0,coins:0,crystals:[false,false,false,false,false],items:[],medals:[],owned:{},gear:{},shieldNext:false,prog:WORLDS.map(()=>({arrived:false,choice:null,done:[],side:false,boss:false})),wstats:WORLDS.map(()=>({ans:0,first:0,fixed:0,cons:{}})),won:false,started:false};}
+let S=fresh();
+const PERSIST=['ready','players','turn','coins','crystals','items','medals','owned','gear','shieldNext','prog','wstats','won','started'];
+function save(){try{const o={};PERSIST.forEach(k=>o[k]=S[k]);localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}}
+function loadData(){try{const t=localStorage.getItem(KEY);return t?JSON.parse(t):null;}catch(e){return null;}}
+const lvlOf=xp=>Math.min(5,1+Math.floor(xp/300));
+const xpPct=p=>lvlOf(p.xp)>=5?100:(p.xp%300)/300*100;
+const capOf=p=>2+(lvlOf(p.xp)>=3?1:0);
+const unlocked=w=>w===0||S.prog[w-1].boss;
+const fig=(i,pose,expr,crop)=>heroSVG(i,{pose,expr,crop,gear:S.gear,aura:lvlOf(S.players[i].xp)>=4});
+
+/* ===== Efectos ===== */
+function toast(msg,c){const t=document.createElement('div');t.className='toast';t.style.setProperty('--c',c||'var(--pink)');t.textContent=msg;const tc=$('#toasts');tc.appendChild(t);while(tc.children.length>3)tc.firstChild.remove();setTimeout(()=>t.remove(),3500);}
+function center(el){const r=el.getBoundingClientRect();return[r.left+r.width/2,r.top+r.height/2];}
+function burst(el,colors,label){if(RM||!el)return;const[x,y]=center(el),fx=$('#fx');for(let i=0;i<22;i++){const s=document.createElement('span');s.className='pt';const a=Math.random()*Math.PI*2,d=60+Math.random()*120,z=8+Math.random()*14;s.style.cssText=`left:${x}px;top:${y}px;width:${z}px;height:${z}px;--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d}px;--pc:${colors[i%colors.length]}`;fx.appendChild(s);setTimeout(()=>s.remove(),1000);}if(label){const t=document.createElement('span');t.className='plus';t.textContent=label;t.style.left=x+'px';t.style.top=y+'px';fx.appendChild(t);setTimeout(()=>t.remove(),1250);}}
+function confetti(){if(RM)return;const fx=$('#fx'),cols=['#ff5fa8','#9b6cf0','#ffc94a','#2fd0ea','#fff','#ff9a3c'];for(let i=0;i<110;i++){const s=document.createElement('span');s.className='cf';s.style.cssText=`left:${Math.random()*100}vw;--pc:${cols[i%cols.length]};animation-delay:${Math.random()*1.6}s;animation-duration:${2.6+Math.random()*2}s;--rx:${(Math.random()-.5)*220}px`;fx.appendChild(s);setTimeout(()=>s.remove(),5200);}}
+function beam(fromEl,toEl,color){if(!fromEl||!toEl)return;sfx('beam');if(RM){hitBoss();return;}const[a,b]=center(fromEl),[c,d]=center(toEl);const len=Math.hypot(c-a,d-b),ang=Math.atan2(d-b,c-a)*180/Math.PI;const el=document.createElement('div');el.className='beam';el.style.cssText=`left:${a}px;top:${b-8}px;width:${len}px;--a:${ang}deg;--c:${color}`;$('#fx').appendChild(el);setTimeout(()=>{el.remove();},750);setTimeout(hitBoss,380);}
+function hitBoss(){const b=app.querySelector('.bossart');if(!b)return;sfx('hit');b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit');const[x,y]=center(b);const t=document.createElement('span');t.className='dmg';t.textContent='¡-1!';t.style.left=x+'px';t.style.top=y+'px';$('#fx').appendChild(t);setTimeout(()=>t.remove(),1150);}
+function bossAttack(){const w=document.createElement('div');w.className='wave';$('#fx').appendChild(w);setTimeout(()=>w.remove(),650);app.classList.remove('shake');void app.offsetWidth;app.classList.add('shake');}
+(function sky(){const sk=$('#sky');for(let i=0;i<70;i++){const s=document.createElement('span');const big=i%9===0;s.className='st'+(big?' sp':'');const z=big?10+Math.random()*8:1+Math.random()*2.5;s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${z}px;height:${z}px;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;sk.appendChild(s);}})();
+let sceneKey=null;
+function updateScene(){const show=['play','decision','failed'].includes(S.screen)||(S.screen==='dialog'&&S.sceneW!=null);const want=show&&S.sceneW!=null?S.sceneW:null;if(want===sceneKey)return;sceneKey=want;const el=$('#scene');el.innerHTML=want==null?'':sceneSVG(want);el.classList.toggle('on',want!=null);}
+
+/* ===== Progresión ===== */
+function medal(pi,name){const p=S.players[pi];if(p.medals.includes(name))return;p.medals.push(name);toast(`${HEROES[pi].name} ganó la medalla “${name}”`,HEROES[pi].c1);}
+function teamMedal(name){if(S.medals.includes(name))return;S.medals.push(name);toast(`Medalla del equipo: ${name}`,'#ffc94a');}
+function addItem(it){if(!S.items.some(x=>x[1]===it[1])){S.items.push(it);toast(`Nuevo objeto: ${it[0]} ${it[1]}`,'#2fd0ea');}}
+function gainXP(pi,n){const p=S.players[pi],b=lvlOf(p.xp);p.xp+=n;const a=lvlOf(p.xp);for(let L=b+1;L<=a;L++){if(L===3)p.charges+=1;toast(`¡${HEROES[pi].name} subió a nivel ${L}! ${UNLOCKS[L]}`,HEROES[pi].c1);setTimeout(()=>sfx('lvl'),400);}}
+function rec(pi,ch,w,first,solved){const p=S.players[pi],ws=S.wstats[w];tags(ch).forEach(t=>{const a=p.cons[t]||(p.cons[t]={n:0,first:0,fixed:0}),b=ws.cons[t]||(ws.cons[t]={n:0,first:0,fixed:0});a.n++;b.n++;if(solved){if(first){a.first++;b.first++;}else{a.fixed++;b.fixed++;}}});ws.ans++;if(solved){if(first)ws.first++;else ws.fixed++;}}
+function mastery(pct){return pct>=85?'Experta':pct>=65?'Logrado':pct>=40?'En camino':'Para repasar';}
+
+/* ===== Flujo general ===== */
+function dialog(lines,then,sceneW){S.dlg={lines,i:0};S.dlgThen=then;S.sceneW=sceneW==null?null:sceneW;S.screen='dialog';render();window.scrollTo(0,0);}
+function go(screen){S.screen=screen;S.modal=null;render();window.scrollTo(0,0);}
+function startNew(){S=fresh();S.started=true;try{localStorage.removeItem(KEY);}catch(e){}dialog(INTRO,()=>go('select'));}
+function openWorld(w){S.wsel=w;const pr=S.prog[w],W=WORLDS[w];if(!pr.arrived){pr.arrived=true;save();dialog(W.arrive,()=>{if(w<4){S.sceneW=w;go('decision');}else go('world');},w);}else go('world');}
+function choose(opt){const w=S.wsel,W=WORLDS[w],d=W.decision;S.prog[w].choice=opt;if(opt==='a'){S.coins+=40;addItem(d.a[2]);sfx('coin');}else{S.coins+=10;}save();
+ dialog([['aria',opt==='a'?d.a[1]:d.b[1]],['aria',opt==='a'?'Ganaron 40 monedas espaciales.':'Ganaron 10 monedas espaciales. ¡Siempre se aprende algo!']],()=>{if(w===4)startRun(4,'boss',0,true);else go('world');},w);}
+function startRun(w,kind,mi,skipIntro){
+ if(kind==='boss'&&w===4&&!S.prog[4].choice){S.wsel=4;S.sceneW=4;go('decision');return;}
+ const W=WORLDS[w];let pool,n;
+ if(kind==='m'){pool=W.missions[mi].pool;n=4;}else if(kind==='side'){pool=W.side.pool;n=4;}else{pool=W.bossPool;n=BOSS_HP[w];}
+ const queue=shuffle(pool).slice(0,n),lives=3+(S.shieldNext?1:0);
+ if(S.shieldNext)toast('Escudo de nave activado: 4 vidas','#2fd0ea');S.shieldNext=false;
+ S.run={w,kind,mi,queue,idx:0,lives,maxLives:lives,hp:queue.length,hpMax:queue.length,xp:[0,0,0,0],coins:0,first:0,fixed:0,lost:0,startLvls:S.players.map(p=>lvlOf(p.xp)),missed:{}};
+ S.sceneW=w;newCh();
+ if(kind==='boss'&&!skipIntro)dialog(W.boss.intro,()=>go('play'),w);else if(kind==='boss'&&skipIntro)dialog(W.boss.intro,()=>go('play'),w);else go('play');
+}
+function newCh(){
+ const ch=S.run.queue[S.run.idx];const c={ch,tries:0,helped:false,hint:false,shield:false,state:'ask',fresh:true,bad:[],elim:[],lastBad:[]};
+ if(['mc','rid','sit'].includes(ch.t))c.order=shuffle(ch.o.map((_,i)=>i));
+ if(ch.t==='ord'){let p;do{p=shuffle(ch.items.map((_,i)=>i));}while(p.every((v,i)=>v===i));c.pool=p;c.slots=ch.items.map(()=>null);c.locked=[];}
+ if(ch.t==='match'){c.lefts=shuffle(ch.pairs.map((_,i)=>i));c.rights=shuffle([...new Set(ch.pairs.map(p=>p[1]))]);c.assign={};c.locked=[];c.selL=null;}
+ if(ch.t==='seq'){c.chips=shuffle(ch.ans.concat(ch.extra));c.fill=ch.ans.map(()=>null);c.locked=[];}
+ S.cur=c;
+}
+const open=()=>S.cur&&S.cur.state==='ask';
+function pick(k){const c=S.cur;if(!open()||c.bad.includes(k)||c.elim.includes(k))return;sfx('click');if(k===0)right();else{c.bad.push(k);wrong();}}
+function pickTF(v){const c=S.cur;if(!open()||c.bad.includes(v))return;sfx('click');if(v===c.ch.a)right();else{c.bad.push(v);wrong();}}
+function ordTap(item){const c=S.cur;if(!open())return;const e=c.slots.findIndex((v,k)=>v===null&&!c.locked.includes(k));if(e<0||c.slots.includes(item))return;c.slots[e]=item;c.lastBad=[];sfx('click');render();}
+function ordSlot(k){const c=S.cur;if(!open()||c.locked.includes(k)||c.slots[k]===null)return;c.slots[k]=null;c.lastBad=[];sfx('click');render();}
+function matchL(p){const c=S.cur;if(!open()||c.locked.includes(p))return;if(c.assign[p]!=null)delete c.assign[p];c.selL=p;c.lastBad=[];sfx('click');render();}
+function matchR(r){const c=S.cur;if(!open()||c.selL==null)return;c.assign[c.selL]=c.rights[r];const next=c.lefts.find(p=>c.assign[p]==null&&!c.locked.includes(p));c.selL=next==null?null:next;sfx('click');render();}
+function seqChip(k){const c=S.cur;if(!open()||c.fill.includes(k))return;const e=c.fill.findIndex((v,i)=>v===null&&!c.locked.includes(i));if(e<0)return;c.fill[e]=k;c.lastBad=[];sfx('click');render();}
+function seqBlank(i){const c=S.cur;if(!open()||c.locked.includes(i)||c.fill[i]===null)return;c.fill[i]=null;sfx('click');render();}
+function check(){const c=S.cur,ch=c.ch;if(!open())return;
+ if(ch.t==='ord'){if(c.slots.includes(null))return;const bad=[];c.slots.forEach((v,k)=>{if(v===k){if(!c.locked.includes(k))c.locked.push(k);}else bad.push(k);});if(!bad.length)return right();c.lastBad=bad;bad.forEach(k=>c.slots[k]=null);return wrong();}
+ if(ch.t==='match'){if(ch.pairs.some((_,p)=>c.assign[p]==null))return;const bad=[];ch.pairs.forEach((pr,p)=>{if(c.assign[p]===pr[1]){if(!c.locked.includes(p))c.locked.push(p);}else bad.push(p);});if(!bad.length)return right();c.lastBad=bad;bad.forEach(p=>delete c.assign[p]);c.selL=bad[0];return wrong();}
+ if(ch.t==='seq'){if(c.fill.includes(null))return;const bad=[];c.fill.forEach((v,i)=>{if(c.chips[v]===ch.ans[i]){if(!c.locked.includes(i))c.locked.push(i);}else bad.push(i);});if(!bad.length)return right();c.lastBad=bad;bad.forEach(i=>c.fill[i]=null);return wrong();}
+}
+function right(){
+ const c=S.cur,r=S.run,pi=S.turn%4,p=S.players[pi],h=HEROES[pi],first=c.tries===0&&!c.helped;
+ const xp=first?100:50,coins=first?10:5;c.state='right';c.gain=xp;c.coins=coins;c.cheer=rnd(CHEERS);
+ gainXP(pi,xp);S.coins+=coins;r.xp[pi]+=xp;r.coins+=coins;p.streak++;if(p.streak>p.best)p.best=p.streak;
+ if(c.tries===0){p.first++;r.first++;}else{p.fixed++;r.fixed++;}
+ rec(pi,c.ch,r.w,c.tries===0,true);
+ if(p.first===1)medal(pi,'Primer acierto');if(p.streak===3)medal(pi,'Racha de 3');if(p.fixed===1&&c.tries>0)medal(pi,'Corrige y aprende');if(p.first===12)medal(pi,'Mente brillante');
+ if(r.kind==='boss')r.hp--;
+ sfx('ok');render();
+ if(r.kind==='boss')beam(app.querySelector('.lu.on'),app.querySelector('.bossart'),h.c1);
+ else burst(app.querySelector('.fb.ok .ft'),[h.c1,h.c2,'#fff','#ffd86b'],'+'+xp);
+}
+function wrong(){
+ const c=S.cur,r=S.run,pi=S.turn%4,p=S.players[pi];c.tries++;p.wrong++;p.streak=0;c.cheer=rnd(ENCOURAGE);
+ tags(c.ch).forEach(t=>r.missed[t]=(r.missed[t]||0)+1);
+ if(c.shield){c.shield=false;c.saved=true;toast('¡El Escudo de cristal protegió una vida!',HEROES[1].c1);}
+ else{r.lives--;r.lost++;c.saved=false;}
+ c.state=r.lives<=0?'out':'wrong';sfx('bad');if(r.kind==='boss')bossAttack();render();
+}
+function retry(){const c=S.cur;c.state='ask';c.fresh=false;render();}
+function next(){
+ const r=S.run;S.turn++;r.idx++;
+ if(r.idx>=r.queue.length){finishRun();return;}
+ newCh();save();render();window.scrollTo({top:0,behavior:RM?'auto':'smooth'});
+}
+function failRun(){const r=S.run,c=S.cur;rec(S.turn%4,c.ch,r.w,false,false);S.turn++;save();go('failed');}
+function canUse(i){const c=S.cur;if(!c||c.state!=='ask')return false;const p=S.players[i],ch=c.ch;if(p.charges<=0)return false;
+ if(i===0)return!c.hint;
+ if(i===1)return!c.shield;
+ if(i===3)return S.run.lives<S.run.maxLives;
+ if(ch.t==='tf')return false;
+ if(['mc','rid','sit'].includes(ch.t))return ch.o.length-1-c.elim.length-c.bad.filter(k=>!c.elim.includes(k)).length>=2;
+ if(ch.t==='ord')return ch.items.length-c.locked.length>=2;
+ if(ch.t==='match')return ch.pairs.length-c.locked.length>=2;
+ if(ch.t==='seq')return ch.ans.length-c.locked.length>=2;
+ return false;}
+function usePower(i){if(!canUse(i))return;const c=S.cur,ch=c.ch,p=S.players[i],h=HEROES[i];p.charges--;p.powers++;
+ if(i===0){c.hint=true;c.helped=true;}
+ if(i===1){c.shield=true;}
+ if(i===3){S.run.lives=Math.min(S.run.maxLives,S.run.lives+1);}
+ if(i===2){c.helped=true;
+  if(['mc','rid','sit'].includes(ch.t)){const w=ch.o.map((_,k)=>k).filter(k=>k!==0&&!c.elim.includes(k)&&!c.bad.includes(k));c.elim.push(rnd(w));}
+  if(ch.t==='ord'){const k=ch.items.map((_,k)=>k).find(k=>!c.locked.includes(k));const at=c.slots.indexOf(k);if(at>=0)c.slots[at]=null;c.slots[k]=k;c.locked.push(k);}
+  if(ch.t==='match'){const pp=c.lefts.find(q=>!c.locked.includes(q));c.assign[pp]=ch.pairs[pp][1];c.locked.push(pp);if(c.selL===pp)c.selL=null;}
+  if(ch.t==='seq'){const b=ch.ans.map((_,k)=>k).find(k=>!c.locked.includes(k));const chipIdx=c.chips.findIndex((t,k)=>t===ch.ans[b]&&!c.locked.some(l=>c.fill[l]===k));const at=c.fill.indexOf(chipIdx);if(at>=0)c.fill[at]=null;c.fill[b]=chipIdx;c.locked.push(b);}
+ }
+ sfx('power');toast(`¡${h.name} usó ${h.power}!`,h.c1);c.fresh=false;render();}
+function finishRun(){
+ const r=S.run,W=WORLDS[r.w],pr=S.prog[r.w];let bonus={m:20,side:30,boss:50}[r.kind];
+ r.perfect=r.lost===0;if(r.perfect){bonus+=20;teamMedal('Misión perfecta');}
+ S.coins+=bonus;r.coins+=bonus;r.bonus=bonus;
+ if(r.kind==='m'&&!pr.done.includes(r.mi))pr.done.push(r.mi);
+ if(r.kind==='side'){if(!pr.side){pr.side=true;addItem(W.side.reward);}if(S.prog.every((p,i)=>!WORLDS[i].side||p.side))teamMedal('Exploradoras');}
+ if(r.kind==='boss'){r.firstWin=!pr.boss;pr.boss=true;S.crystals[r.w]=true;addItem(W.item);teamMedal(W.medal);S.players.forEach(p=>{if(p.charges<capOf(p))p.charges=capOf(p);});if(r.w===4)S.won=true;}
+ save();go('missionEnd');sfx('win');if(r.kind==='boss')confetti();
+}
+
+/* ===== Pantallas ===== */
+function sndBtns(){return `<button class="ibtn ${SND.music?'on':''}" data-a="music" aria-pressed="${SND.music}" aria-label="Música" title="Música">♪</button><button class="ibtn ${SND.sfx?'on':''}" data-a="sfx" aria-pressed="${SND.sfx}" aria-label="Efectos de sonido" title="Efectos de sonido">${SND.sfx?'🔊':'🔇'}</button>`;}
+function gems(){return WORLDS.map((w,i)=>gemSVG(S.crystals[i]?w.color:null)).join('');}
+function hud(extra){
+ const back=S.screen==='ship'?'':`<button class="hc hbtn" data-a="ship">🚀 <span>Nave</span></button>`;
+ return `<header class="hud">${back}${extra||''}<span class="hc" title="Cristales" role="img" aria-label="${S.crystals.filter(Boolean).length} de 5 cristales">${gems()}</span><span class="hc" title="Monedas espaciales">🪙 <b>${S.coins}</b><small>monedas</small></span><span class="grow"></span>${sndBtns()}</header>`;
+}
+function rTitle(){const has=!!loadData();
+ return `<section class="title"><div class="shipfly">${shipSVG()}</div><p class="logo ttl">MISIÓN ESPACIAL</p><h1 class="logo2 ttl">${'Las Guardianas del Universo'.split(' ').map((w,i)=>`<span style="animation-delay:${.15+i*.15}s">${w}</span>`).join(' ')}</h1>
+ <div class="tgirls">${HEROES.map((h,i)=>`<div style="--d:${i*.35}s">${fig(i,'idle','smile')}</div>`).join('')}</div>
+ <div class="row c">${has?`<button class="btn" data-a="continue" data-focus>Continuar la misión</button><button class="btn ghost" data-a="new">Empezar de nuevo</button>`:`<button class="btn" data-a="new" data-focus>Comenzar la misión</button>`}</div>
+ <div class="row c">${sndBtns()}</div><p class="tag">Para 4 jugadoras en una misma tablet o compu. Se juega tocando la pantalla.</p></section>`;}
+function spk(who){
+ const hi=HEROES.findIndex(h=>h.key===who);
+ if(hi>=0)return[`${HEROES[hi].name}, ${HEROES[hi].title}`,HEROES[hi].c1,fig(hi,'idle',who==='rufi'?'determined':'smile')];
+ const B={golem:WORLDS[0].boss.name,sequia:WORLDS[1].boss.name,devorador:WORLDS[2].boss.name,tiempo:WORLDS[3].boss.name,vacio:'El Vacío Cósmico'};
+ if(B[who])return[B[who],'#b07cff',boss(who)];
+ if(who==='aria')return['ARIA, la inteligencia de la nave','#2fd0ea',ariaSVG()];
+ if(who==='todas')return['Las cuatro guardianas','#ff5fa8',`<div class="quad">${HEROES.map((h,i)=>fig(i,'cheer','happy',true)).join('')}</div>`];
+ return['Narradora','#9b6cf0',narrSVG()];
+}
+function rDialog(){const d=S.dlg,l=d.lines[d.i],[name,col,art]=spk(l[0]),last=d.i===d.lines.length-1;
+ return `<section class="dlg"><div class="dstage"><div class="dart">${art}</div><div class="panel bub" style="--c:${col}"><p class="who d">${name}</p><p class="say">${esc(l[1])}</p><div class="row e"><button class="btn ghost" data-a="dskip">Saltar</button><button class="btn" data-a="dnext" data-focus>${last?'¡Vamos!':'Seguir'}</button></div></div></div><div class="ddots">${d.lines.map((_,k)=>`<span class="${k===d.i?'on':''}"></span>`).join('')}</div></section>`;}
+function rSelect(){const all=S.ready.every(Boolean);
+ return `<h1 class="ttl d" style="text-align:center;margin:6px 0 14px">Presenten a la tripulación</h1><section class="sel">${HEROES.map((h,i)=>{const r=S.ready[i];return `<article class="panel scard ${r?'ready':''}" style="--c:${h.c1}"><div class="fig">${fig(i,r?'cheer':'idle',r?'happy':'smile')}</div><h3 class="d">${h.name}</h3><b>${h.title}</b><p class="pers">${h.pers}</p><p class="muted">Poder: ${h.power}. ${h.powerDesc}</p><button class="btn rbtn ${r?'on':''}" data-a="ready" data-i="${i}" aria-pressed="${r}">${r?'¡Lista!':'Estoy lista'}</button></article>`;}).join('')}</section>
+ <div class="row c"><button class="btn gold" data-a="board" ${all?'data-focus':'disabled'}>${all?'Subir a la nave Aurora':'Cada guardiana tiene que tocar “Estoy lista”'}</button></div>`;}
+function nextGoal(){for(let w=0;w<5;w++){const pr=S.prog[w];if(!pr.boss){const W=WORLDS[w];if(!pr.arrived)return `Próximo destino: ${W.name}. ¡Al mapa galáctico!`;const m=W.missions.findIndex((_,i)=>!pr.done.includes(i));return m>=0?`Siguiente misión en ${W.short}: “${W.missions[m].name}”.`:`¡Es hora de enfrentar a ${W.boss.name}!`;}}return '¡Salvaron el universo! Pueden repetir misiones para seguir aprendiendo.';}
+function rShip(){
+ return hud()+`<section class="ship"><div class="shipart">${shipSVG()}</div><div><div class="panel aria"><div class="av">${ariaSVG()}</div><p><b>ARIA:</b> ${nextGoal()}</p></div>
+ <div class="rooms"><button class="room big" data-a="map"><span class="ri">🌌</span><span><b>Mapa galáctico</b><small>Elegir mundo y misión</small></span></button>
+ <button class="room" data-a="go" data-s="crew"><span class="ri">👩‍🚀</span><span><b>Tripulación</b><small>Las guardianas y sus trajes</small></span></button>
+ <button class="room" data-a="go" data-s="inventory"><span class="ri">🎒</span><span><b>Inventario</b><small>Cristales, objetos y poderes</small></span></button>
+ <button class="room" data-a="go" data-s="shop"><span class="ri">🛠️</span><span><b>Taller</b><small>Mejoras con monedas</small></span></button>
+ <button class="room" data-a="go" data-s="log"><span class="ri">📘</span><span><b>Bitácora</b><small>Lo que aprendieron</small></span></button></div>
+ <div class="row e"><button class="btn ghost" data-a="reset">Reiniciar juego</button></div></div></section>`;}
+const POS=[[14,72,28,10],[33,34,72,28],[52,72,28,48],[71,32,72,67],[88,64,48,88]];
+function rMap(){
+ let cur=0;for(let w=0;w<5;w++)if(unlocked(w))cur=w;
+ return hud()+`<div class="galaxy" role="group" aria-label="Mapa galáctico"><svg class="route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline class="ln" points="${POS.map(p=>p[0]+','+p[1]).join(' ')}" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="6 6" vector-effect="non-scaling-stroke" opacity=".6"/><polyline class="pt" points="${POS.map(p=>p[2]+','+p[3]).join(' ')}" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="6 6" vector-effect="non-scaling-stroke" opacity=".6"/></svg>
+ ${WORLDS.map((W,w)=>{const un=unlocked(w),done=S.prog[w].boss;return `<button class="planet ${w===cur&&!done?'cur':''}" style="--x:${POS[w][0]}%;--y:${POS[w][1]}%;--px:${POS[w][2]}%;--py:${POS[w][3]}%;--c:${W.color}" data-a="world" data-w="${w}" ${un?'':'disabled'} aria-label="${W.name}${un?'':', bloqueado'}"><span class="pa">${planetSVG(w)}</span><b>${w+1}. ${W.short}</b><small>${done?'Completo ✓':un?'Disponible':'🔒 Bloqueado'}</small></button>`;}).join('')}
+ <div class="mapship" style="--x:${POS[cur][0]}%;--y:${POS[cur][1]}%;--px:${POS[cur][2]}%;--py:${POS[cur][3]}%">${shipSVG()}</div></div>
+ <div class="panel aria" style="margin-top:12px"><div class="av">${ariaSVG()}</div><p>Tocá un planeta desbloqueado para viajar. Cada mundo se abre al vencer al jefe del anterior.</p></div>`;}
+function rWorld(){
+ const w=S.wsel,W=WORLDS[w],pr=S.prog[w],allM=W.missions.every((_,i)=>pr.done.includes(i));
+ const cards=W.missions.map((m,i)=>{const done=pr.done.includes(i),un=i===0||pr.done.includes(i-1),nx=un&&!done;const cs=[...new Set(m.pool.flatMap(tags))].map(t=>CONCEPTS[t][0]);return `<button class="mcard ${done?'done':''} ${nx?'next':''}" data-a="run" data-k="m" data-i="${i}" ${un?'':'disabled'} style="--c:${W.color}"><span class="mn">${done?'✓':un?i+1:'🔒'}</span><span><b>Misión ${i+1}: ${m.name}</b><small>${cs.slice(0,4).join(', ')}</small></span></button>`;}).join('');
+ const side=W.side?`<button class="mcard side ${pr.side?'done':''}" data-a="run" data-k="side" data-i="0" ${pr.done.includes(0)?'':'disabled'} style="--c:${W.color}"><span class="mn">${pr.side?'✓':'★'}</span><span><b>${W.side.name}</b><small>${W.side.desc}. Opcional: da monedas y un objeto. ${pr.done.includes(0)?'':'Se abre al completar la Misión 1.'}</small></span></button>`:'';
+ const bs=`<button class="mcard boss ${pr.boss?'done':''}" data-a="run" data-k="boss" data-i="0" ${allM?'':'disabled'}><span class="mn">${boss(W.boss.key)}</span><span><b>Jefe final: ${W.boss.name}</b><small>${pr.boss?'¡Derrotado! Pueden volver a enfrentarlo para practicar.':allM?'¡Listas para la batalla! Usen todo lo aprendido.':'Se desbloquea al completar las misiones principales.'}</small></span></button>`;
+ const dec=pr.choice?`<p class="muted">Decisión tomada: ${pr.choice==='a'?W.decision.a[0]:W.decision.b[0]}.</p>`:'';
+ return hud(`<button class="hc hbtn" data-a="map">🌌 <span>Mapa</span></button>`)+`<section class="panel whead" style="--c:${W.color}"><div class="pa">${planetSVG(w)}</div><div><p class="muted">Mundo ${w+1}</p><h1 class="d" style="margin:0;color:${W.color}">${W.name}</h1>${dec}<p>${S.crystals[w]?`${gemSVG(W.color)} ${W.crystal} recuperado.`:`Recuperen el ${W.crystal}.`}</p></div></section><section class="mlist">${cards}${side}${bs}</section>`;}
+function rDecision(){const w=S.wsel,d=WORLDS[w].decision;
+ return `<section class="panel dec"><div class="aria" style="margin:0"><div class="av">${ariaSVG()}</div><p class="say">${esc(d.q)}</p></div><p class="muted">Su decisión cambia la historia. Piénsenlo juntas.</p><div class="dopts"><button class="dopt" data-a="choose" data-v="a"><span>Opción A</span>${esc(d.a[0])}</button><button class="dopt" data-a="choose" data-v="b"><span>Opción B</span>${esc(d.b[0])}</button></div></section>`;}
+function chBody(){
+ const c=S.cur,ch=c.ch,pi=S.turn%4,h=HEROES[pi],op=c.state==='ask',L='ABCDE';
+ if(['mc','rid','sit'].includes(ch.t))return `<div class="opts ${ch.o.length===3?'three':''}">${c.order.map((k,pos)=>{let cl='opt';if(c.elim.includes(k))cl+=' el';if(c.bad.includes(k))cl+=' bad';if(c.state==='right'&&k===0)cl+=' ok';const dis=!op||c.elim.includes(k)||c.bad.includes(k);return `<button class="${cl}" data-a="pick" data-k="${k}" ${dis?'disabled':''} style="--c:${h.c1}"><span class="lt">${L[pos]}</span><span>${esc(ch.o[k])}</span></button>`;}).join('')}</div>`;
+ if(ch.t==='tf')return `<div class="opts">${[true,false].map(v=>{let cl='opt tfb';if(c.bad.includes(v))cl+=' bad';if(c.state==='right'&&v===ch.a)cl+=' ok';return `<button class="${cl}" data-a="tf" data-v="${v}" ${!op||c.bad.includes(v)?'disabled':''} style="--c:${h.c1}">${v?'✔ Verdadero':'✖ Falso'}</button>`;}).join('')}</div>`;
+ if(ch.t==='ord'){const full=!c.slots.includes(null);return `<p class="muted">Tocá las tarjetas en orden. Para sacar una, tocala en su lugar.</p><div class="slots">${c.slots.map((v,k)=>{const lock=c.locked.includes(k)||c.state==='right';return `<button class="slot ${v!==null?'fill':''} ${lock?'lock':''} ${c.lastBad.includes(k)?'badp':''}" data-a="oslot" data-k="${k}" ${!op||lock||v===null?'disabled':''} style="--c:${h.c1}"><span class="n">${k+1}</span><span>${v===null?'':esc(ch.items[v])}</span></button>`;}).join('')}</div><div class="pool">${c.pool.map(it=>`<button class="pitem" data-a="oitem" data-k="${it}" ${!op||c.slots.includes(it)?'disabled':''} style="--c:${h.c1}">${esc(ch.items[it])}</button>`).join('')}</div>${op?`<div class="row"><button class="btn cy" data-a="check" ${full?'':'disabled'}>Comprobar</button></div>`:''}`;}
+ if(ch.t==='match'){const full=ch.pairs.every((_,p)=>c.assign[p]!=null);const usedCount=v=>Object.values(c.assign).filter(x=>x===v).length,need=v=>ch.pairs.filter(p=>p[1]===v).length;
+  return `<p class="muted">Tocá un elemento de la izquierda y después su pareja de la derecha.</p><div class="mgrid"><div class="mcol">${c.lefts.map(p=>{const lock=c.locked.includes(p)||c.state==='right';return `<button class="ml ${c.selL===p&&op?'sel':''} ${lock?'lock':''} ${c.lastBad.includes(p)?'badp':''}" data-a="ml" data-k="${p}" ${!op||lock?'disabled':''} style="--c:${h.c1}">${esc(ch.pairs[p][0])}${c.assign[p]!=null?`<span class="as">→ ${esc(c.assign[p])}</span>`:''}</button>`;}).join('')}</div><div class="mcol">${c.rights.map((v,r)=>`<button class="mr" data-a="mr" data-k="${r}" ${!op||c.selL==null||usedCount(v)>=need(v)?'disabled':''} style="--c:${h.c1}">${esc(v)}</button>`).join('')}</div></div>${op?`<div class="row"><button class="btn cy" data-a="check" ${full?'':'disabled'}>Comprobar</button></div>`:''}`;}
+ if(ch.t==='seq'){let bi=0;const full=!c.fill.includes(null);const txt=ch.parts.map(pt=>{if(pt!==null)return esc(pt);const i=bi++,v=c.fill[i],lock=c.locked.includes(i)||c.state==='right';return `<button class="blank ${lock?'lock':''} ${c.lastBad.includes(i)?'badp':''}" data-a="sblank" data-k="${i}" ${!op||lock||v===null?'disabled':''} style="--c:${h.c1}">${v===null?'…':esc(c.chips[v])}</button>`;}).join('');
+  return `<p class="seqtxt">${txt}</p><div class="pool">${c.chips.map((t,k)=>`<button class="pitem" data-a="schip" data-k="${k}" ${!op||c.fill.includes(k)?'disabled':''} style="--c:${h.c1}">${esc(t)}</button>`).join('')}</div>${op?`<div class="row"><button class="btn cy" data-a="check" ${full?'':'disabled'}>Comprobar</button></div>`:''}`;}
+ return '';
+}
+function rPlay(){
+ const r=S.run,c=S.cur,ch=c.ch,pi=S.turn%4,h=HEROES[pi],p=S.players[pi],L=lvlOf(p.xp),W=WORLDS[r.w],isB=r.kind==='boss';
+ const title=isB?`Batalla: ${W.boss.name}`:r.kind==='side'?W.side.name:`Misión ${r.mi+1}: ${W.missions[r.mi].name}`;
+ const expr=c.state==='right'?'happy':c.state==='wrong'||c.state==='out'?'worried':c.hint?'surprised':'smile';
+ const pose=c.state==='right'?(isB?'cast':'cheer'):'idle';
+ const hearts=Array.from({length:r.maxLives},(_,k)=>heartSVG(k<r.lives)).join('');
+ let fb='';
+ if(c.state==='right')fb=`<div class="fb ok" role="status"><p class="ft">${c.cheer} +${c.gain} XP, +${c.coins} monedas</p><p>${esc(ch.e)}</p><button class="btn" data-a="next" data-focus>${r.idx===r.queue.length-1?(isB?'¡Golpe final!':'Terminar misión'):'Seguir'}</button></div>`;
+ if(c.state==='wrong'||c.state==='out'){const t=tags(ch)[0];fb=`<div class="fb bad" role="status"><p class="ft">${c.cheer}</p>${c.saved?'<p>El Escudo de cristal de Lupe protegió la vida.</p>':'<p>Perdieron una vida.</p>'}<p>💡 Pista: ${esc(ch.h)}</p>${c.tries>=2?`<p class="rec">📘 Recordá: <b>${CONCEPTS[t][0]}.</b> ${CONCEPTS[t][1]}</p>`:''}${c.state==='out'?'<button class="btn" data-a="fail" data-focus>Ver qué repasar</button>':`<button class="btn cy" data-a="retry" data-focus>Intentar de nuevo</button>`}</div>`;}
+ const pw=HEROES.map((hh,i)=>{const pp=S.players[i],can=canUse(i);return `<button class="pw" data-a="power" data-i="${i}" style="--c:${hh.c1}" ${can?'':'disabled'} aria-label="${hh.power} de ${hh.name}: ${hh.powerDesc} Usos: ${pp.charges}"><span>${fig(i,'idle','smile',true)}</span><span><b>${hh.power}</b><small>${hh.name}: ${hh.powerDesc}</small><span class="dots">${'<i></i>'.repeat(pp.charges)}${'<i class="off"></i>'.repeat(Math.max(0,capOf(pp)-pp.charges))}</span></span></button>`;}).join('');
+ const arena=isB?`<div class="arena"><div><b class="d" style="font-size:1.2rem">${W.boss.name}</b><div class="hp" role="progressbar" aria-label="Energía del jefe" aria-valuemin="0" aria-valuemax="${r.hpMax}" aria-valuenow="${r.hp}"><i style="width:${r.hp/r.hpMax*100}%"></i></div><small>Energía: ${r.hp} de ${r.hpMax}. Cada respuesta correcta es un ataque.</small><div class="lineup">${HEROES.map((hh,i)=>`<div class="lu ${i===pi?'on':''}" style="--c:${hh.c1}">${fig(i,'idle',i===pi?'determined':'smile',true)}</div>`).join('')}</div></div><div class="bossart">${boss(W.boss.key)}</div></div>`:'';
+ const fr=c.fresh;c.fresh=false;
+ return `<header class="hud"><button class="hc hbtn" data-a="leave">‹ Salir</button><span class="hc" role="img" aria-label="${r.lives} vidas">${hearts}</span><span class="hc">🪙 <b>${S.coins}</b></span><span class="grow"></span><span class="mname">${title}</span><span class="grow"></span>${sndBtns()}</header>
+ ${arena}<section class="play"><aside class="turn ${fr?'new':''}" style="--c:${h.c1};--c2:${h.c2}" aria-live="polite"><div class="fig">${fig(pi,pose,expr)}</div><div><p class="tl">Turno de</p><p class="tn">${h.name}</p><p class="tt">${h.title}</p><div class="eb">Nivel ${L}<div class="bar"><i style="width:${xpPct(p)}%"></i></div></div><p class="nx">Después juega ${HEROES[(S.turn+1)%4].name}</p></div></aside>
+ <div>${isB?'':`<div class="mhead"><div class="pdots" role="img" aria-label="Desafío ${r.idx+1} de ${r.queue.length}">${r.queue.map((_,k)=>`<span class="${k<r.idx?'past':k===r.idx?'cur':''}"></span>`).join('')}</div></div>`}
+ <article class="panel"><span class="ctype" style="--c:${h.c1}">${TYPE_LABEL[ch.t]}</span><h2 class="q ${ch.t==='rid'?'rid':''}">${esc(ch.q)}</h2>${c.hint?`<div class="hintb" style="--cc:${HEROES[0].c1}">🌙 Radar lunar de Catu: ${esc(ch.h)}</div>`:''}${c.shield?`<div class="hintb" style="--cc:${HEROES[1].c1}">💎 Escudo de cristal activo: si se equivocan, no pierden vida.</div>`:''}${chBody()}${fb}</article>
+ <div class="powers">${pw}</div></div></section>`;}
+function gainsBlock(r){return `<div class="gains">${S.players.map((p,i)=>{const h=HEROES[i],to=lvlOf(p.xp),ups=[];for(let L=r.startLvls[i]+1;L<=to;L++)ups.push(`Nivel ${L}: ${UNLOCKS[L]}`);return `<div class="gain" style="--c:${h.c1}"><div class="pf">${fig(i,'idle',r.xp[i]>0?'happy':'smile',true)}</div><b class="d">${h.name}</b><span>+${r.xp[i]} XP</span>${ups.map(u=>`<span class="up">${u}</span>`).join('')}</div>`;}).join('')}</div>`;}
+function rMissionEnd(){const r=S.run,W=WORLDS[r.w],isB=r.kind==='boss';
+ return hud()+`<section class="panel res"><h1 class="d">${isB?`¡Derrotaron a ${W.boss.name}!`:'¡Misión cumplida!'}</h1>${isB?`<p class="say">“${W.boss.defeat}”</p>`:''}
+ <div class="stats"><div class="stat"><b>${r.queue.length}</b><span>desafíos</span></div><div class="stat"><b>${r.first}</b><span>al primer intento</span></div><div class="stat"><b>${r.fixed}</b><span>errores corregidos</span></div><div class="stat"><b>+${r.coins}</b><span>monedas</span></div></div>
+ ${r.perfect?'<p class="chip ok">Misión perfecta: no perdieron ninguna vida (+20 monedas)</p>':''}${gainsBlock(r)}
+ <div class="row c">${isB?`<button class="btn gold" data-a="go" data-s="report" data-focus>Ver informe del mundo</button>`:`<button class="btn" data-a="world" data-w="${r.w}" data-focus>Volver al planeta</button>`}</div></section>`;}
+function conceptRows(cons,list){return list.map(t=>{const v=cons[t];if(!v)return `<span class="chip nd">${CONCEPTS[t][0]}: sin practicar</span>`;const pct=Math.round(v.first/v.n*100);return `<span class="chip ${pct>=65?'ok':'rev'}">${CONCEPTS[t][0]}: ${mastery(pct)}</span>`;}).join('');}
+function worldConcepts(w){return [...new Set([...WORLDS[w].missions.flatMap(m=>m.pool.flatMap(tags)),...WORLDS[w].bossPool.flatMap(tags)])];}
+function rReport(){const w=S.run.w,W=WORLDS[w],ws=S.wstats[w],pct=ws.ans?Math.round(ws.first/ws.ans*100):0,learned=Object.keys(ws.cons).filter(t=>ws.cons[t].first+ws.cons[t].fixed>0);
+ return hud()+`<section class="panel res"><h1 class="d">Informe: ${W.name}</h1><div class="stats"><div class="stat"><b>${ws.ans}</b><span>preguntas respondidas</span></div><div class="stat"><b>${ws.first}</b><span>aciertos al primer intento</span></div><div class="stat"><b>${ws.fixed}</b><span>errores corregidos</span></div><div class="stat"><b>${learned.length}</b><span>conceptos aprendidos</span></div></div>
+ <p><b>Nivel de dominio del equipo: ${mastery(pct)}</b> (${pct}% al primer intento)</p><div class="meter"><div class="bar" style="--c:#2fd0ea;--c2:#ff5fa8"><i style="width:${pct}%"></i></div></div>
+ <p class="muted">Conceptos de este mundo</p><div class="chips" style="justify-content:center">${conceptRows(ws.cons,learned.length?worldConcepts(w):[])}</div>
+ <div class="row c"><button class="btn gold" data-a="go" data-s="${w===4?'victory':'reward'}" data-focus>${w===4?'¡Ver el final!':'Recibir recompensas'}</button></div></section>`;}
+function rReward(){const w=S.run.w,W=WORLDS[w];
+ return hud()+`<section class="panel res" style="--c:${W.color}"><h1 class="d">${W.crystal}</h1><div class="reward">${gemSVG(W.color).replace('class="gm"','class="gm" style="width:100%;height:auto"')}</div><p class="big-emoji">${W.item[0]}</p><p><b>${W.item[1]}</b>: ${W.item[2]}</p><p>Medalla del equipo: <b>${W.medal}</b>. Los poderes se recargaron.</p>${w<4?`<p>Se abrió un nuevo mundo: <b>${WORLDS[w+1].name}</b>.</p>`:''}<div class="row c"><button class="btn" data-a="map" data-focus>Ir al mapa galáctico</button><button class="btn ghost" data-a="ship">Volver a la nave</button></div></section>`;}
+function rFailed(){const r=S.run,miss=Object.keys(r.missed);
+ return `<section class="panel res"><div class="aria" style="justify-content:center"><div class="av">${ariaSVG()}</div><h1 class="d">La misión se interrumpió</h1></div><p>Las guardianas no se rinden: lo importante es aprender. Repasen estos conceptos y vuelvan a intentarlo. Los puntos que ganaron quedan guardados.</p>
+ <div style="text-align:left">${miss.map(t=>`<p class="fb" style="--cc:var(--oops)"><b>${CONCEPTS[t][0]}:</b> ${CONCEPTS[t][1]}</p>`).join('')}</div>
+ <div class="row c"><button class="btn" data-a="rerun" data-focus>Reintentar la misión</button><button class="btn ghost" data-a="world" data-w="${r.w}">Volver al planeta</button></div></section>`;}
+function rCrew(){const i=S.csel||0,h=HEROES[i],p=S.players[i],L=lvlOf(p.xp);
+ return hud()+`<section class="panel"><h1 class="d" style="margin-top:0">Tripulación</h1><div class="tabs">${HEROES.map((hh,k)=>`<button class="tab ${k===i?'on':''}" data-a="csel" data-i="${k}" style="--c:${hh.c1}">${hh.name}</button>`).join('')}</div>
+ <div class="crew" style="--c:${h.c1};--c2:${h.c2}"><div class="fig">${fig(i,'cheer','happy')}</div><div><h2 class="d" style="margin:0;color:${h.c1}">${h.name}, ${h.title}</h2><p>${h.pers}</p>
+ <dl class="kv"><dt>Look</dt><dd>${h.hairDesc}</dd><dt>Poder</dt><dd>${h.power}: ${h.powerDesc} (usos: ${p.charges})</dd><dt>Nivel</dt><dd>${L}${L<5?`, faltan ${300-p.xp%300} XP para el próximo`:', el máximo'}</dd><dt>Aciertos</dt><dd>${p.first} al primer intento, ${p.fixed} corregidos</dd><dt>Mejor racha</dt><dd>${p.best}</dd></dl>
+ <div class="bar" style="margin:8px 0"><i style="width:${xpPct(p)}%"></i></div>
+ <p><b>Premios por nivel</b></p><div class="chips">${[2,3,4,5].map(k=>`<span class="chip ${L>=k?'ok':'nd'}">${L>=k?'✓':'🔒'} Nivel ${k}: ${UNLOCKS[k]}</span>`).join('')}</div>
+ <p><b>Medallas</b></p><div class="chips">${p.medals.length?p.medals.map(m=>`<span class="chip">🏅 ${m}</span>`).join(''):'<span class="muted">Todavía ninguna.</span>'}</div>
+ <p><b>Trajes del equipo</b> (se compran en el Taller)</p><div class="chips">${SHOP.filter(s=>s.kind==='gear').map(s=>S.owned[s.id]?`<button class="toggle ${S.gear[s.id]?'on':''}" data-a="gear" data-g="${s.id}" aria-pressed="${!!S.gear[s.id]}">${s.e} ${s.name}: ${S.gear[s.id]?'puesto':'guardado'}</button>`:`<span class="chip nd">🔒 ${s.name}</span>`).join('')}</div></div></div></section>`;}
+function rInventory(){
+ return hud()+`<section class="panel"><h1 class="d" style="margin-top:0">Inventario</h1><p><b>Cristales de energía</b></p><div class="grid3">${WORLDS.map((W,i)=>`<div class="item ${S.crystals[i]?'':'off'}"><div style="width:44px;margin:0 auto">${gemSVG(S.crystals[i]?W.color:null).replace('class="gm"','class="gm" style="width:44px;height:44px"')}</div><b>${W.crystal}</b><small>${S.crystals[i]?'Recuperado':'Todavía no'}</small></div>`).join('')}</div>
+ <p style="margin-top:14px"><b>Objetos</b></p><div class="grid3">${S.items.length?S.items.map(it=>`<div class="item"><div class="ie">${it[0]}</div><b>${it[1]}</b><small>${it[2]}</small></div>`).join(''):'<p class="muted">Ganen misiones y tomen buenas decisiones para conseguir objetos.</p>'}</div>
+ <p style="margin-top:14px"><b>Poderes disponibles</b></p><div class="grid3">${HEROES.map((h,i)=>`<div class="item" style="border-color:${h.c1}"><div style="width:56px;margin:0 auto">${fig(i,'idle','smile',true)}</div><b>${h.power}</b><small>${S.players[i].charges} ${S.players[i].charges===1?'uso':'usos'}</small></div>`).join('')}<div class="item"><div class="ie">🛡️</div><b>Escudo de nave</b><small>${S.shieldNext?'Listo para la próxima misión':'No tienen'}</small></div><div class="item"><div class="ie">🪙</div><b>${S.coins} monedas</b><small>Se gastan en el Taller</small></div></div>
+ <p style="margin-top:14px"><b>Medallas del equipo</b></p><div class="chips">${S.medals.length?S.medals.map(m=>`<span class="chip">🏅 ${m}</span>`).join(''):'<span class="muted">Todavía ninguna.</span>'}</div></section>`;}
+function rShop(){
+ return hud()+`<section class="panel"><h1 class="d" style="margin-top:0">Taller de la nave</h1><p>Tienen <b>🪙 ${S.coins} monedas espaciales</b>. Se ganan respondiendo, completando misiones y tomando buenas decisiones.</p><div class="grid3">${SHOP.map(s=>{const owned=s.kind==='gear'&&S.owned[s.id],dis=owned||S.coins<s.price||(s.id==='escudo'&&S.shieldNext);return `<div class="item"><div class="ie">${s.e}</div><b>${s.name}</b><small>${s.desc}</small><button class="btn ${owned?'ghost':'gold'}" style="margin-top:8px;width:100%" data-a="buy" data-id="${s.id}" ${dis?'disabled':''}>${owned?'Comprado':s.id==='escudo'&&S.shieldNext?'Ya lo tienen':`Comprar: ${s.price} 🪙`}</button></div>`;}).join('')}</div></section>`;}
+function rLog(){
+ const fin=S.won;const all=Object.keys(CONCEPTS);
+ return hud()+`<section class="panel"><h1 class="d" style="margin-top:0">${fin?'Informe final de las guardianas':'Bitácora de aprendizaje'}</h1><p class="muted">El aprendizaje es más importante que la puntuación. “Domina” significa que respondió bien al primer intento la mayoría de las veces.</p>
+ <p><b>Progreso por mundo</b></p>${WORLDS.map((W,w)=>{const ws=S.wstats[w],pct=ws.ans?Math.round(ws.first/ws.ans*100):0;return `<div style="display:grid;grid-template-columns:minmax(120px,220px) 1fr auto;gap:10px;align-items:center;margin:6px 0"><b>${W.short}</b><div class="bar" style="--c:${W.color};--c2:${W.color}"><i style="width:${pct}%"></i></div><span class="muted">${ws.ans?`${mastery(pct)} (${ws.ans} preguntas)`:'Sin jugar'}</span></div>`;}).join('')}
+ <div class="rgrid" style="margin-top:14px">${HEROES.map((h,i)=>{const p=S.players[i],ks=Object.keys(p.cons);const dom=ks.filter(t=>p.cons[t].first/p.cons[t].n>=.67),rev=ks.filter(t=>p.cons[t].first/p.cons[t].n<.67);return `<article class="rcard" style="--c:${h.c1}"><div class="rhead"><div>${fig(i,'idle','smile',true)}</div><div><h3 class="d">${h.name}</h3><span class="lvlbadge">Nivel ${lvlOf(p.xp)}</span> <span class="muted">${p.first} aciertos al primer intento, ${p.fixed} errores corregidos</span></div></div>
+ <p><b>Domina</b></p><div class="chips">${dom.length?dom.map(t=>`<span class="chip ok">✓ ${CONCEPTS[t][0]}</span>`).join(''):'<span class="muted">Todavía no hay datos suficientes.</span>'}</div>
+ <p><b>Para repasar</b></p>${rev.length?rev.map(t=>`<p style="margin:4px 0"><span class="chip rev">${CONCEPTS[t][0]}</span> <span class="muted">${CONCEPTS[t][1]}</span></p>`).join(''):'<p class="muted">¡Nada pendiente por ahora!</p>'}</article>`;}).join('')}</div>
+ ${fin?`<p class="muted" style="margin-top:12px">Conceptos sin practicar todavía: ${all.filter(t=>!S.players.some(p=>p.cons[t])).map(t=>CONCEPTS[t][0]).join(', ')||'ninguno'}.</p>`:''}</section>`;}
+function rVictory(){const tot=S.wstats.reduce((a,w)=>a+w.ans,0),fst=S.wstats.reduce((a,w)=>a+w.first,0);
+ return `<section class="res" style="padding-top:8px"><p class="tag">Los cinco cristales brillan juntos</p><div class="tgirls" style="margin:10px auto">${HEROES.map((h,i)=>`<div style="--d:${i*.3}s">${heroSVG(i,{pose:'cheer',expr:'happy',gear:S.gear,aura:true})}</div>`).join('')}</div>
+ <h1 class="logo2 ttl" style="font-size:clamp(2rem,6vw,4rem)">¡El universo está a salvo!</h1>
+ <div class="panel" style="margin-top:14px"><p class="say">Catu, Lupe, Rufi y Emma vencieron al Vacío Cósmico. El conocimiento llenó el vacío y los planetas recuperaron su energía.</p>
+ <div class="stats"><div class="stat"><b>${tot}</b><span>preguntas respondidas</span></div><div class="stat"><b>${fst}</b><span>aciertos al primer intento</span></div><div class="stat"><b>5</b><span>cristales</span></div><div class="stat"><b>${S.coins}</b><span>monedas</span></div></div>
+ <div class="chips" style="justify-content:center">${S.medals.map(m=>`<span class="chip">🏅 ${m}</span>`).join('')}</div>
+ <div class="row c"><button class="btn gold" data-a="go" data-s="log" data-focus>Ver informe final</button><button class="btn" data-a="ship">Volver a la nave</button><button class="btn ghost" data-a="reset">Jugar de nuevo</button></div></div></section>`;}
+function rModal(){
+ if(S.modal==='leave')return `<div class="modal"><div class="panel" role="dialog" aria-modal="true"><h2 class="d" style="margin-top:0">¿Salir de la misión?</h2><p>Se pierde el avance de esta misión, pero la experiencia y las monedas ganadas quedan guardadas.</p><div class="row"><button class="btn" data-a="leave-yes">Salir</button><button class="btn ghost" data-a="close" data-focus>Seguir jugando</button></div></div></div>`;
+ if(S.modal==='reset')return `<div class="modal"><div class="panel" role="dialog" aria-modal="true"><h2 class="d" style="margin-top:0">¿Reiniciar el juego?</h2><p>Se borra todo el progreso guardado: niveles, cristales, monedas, objetos e informes.</p><div class="row"><button class="btn" data-a="reset-yes">Sí, empezar de nuevo</button><button class="btn ghost" data-a="close" data-focus>Cancelar</button></div></div></div>`;
+ return '';}
+function render(){
+ updateScene();
+ const R={title:rTitle,dialog:rDialog,select:rSelect,ship:rShip,map:rMap,world:rWorld,decision:rDecision,play:rPlay,missionEnd:rMissionEnd,report:rReport,reward:rReward,failed:rFailed,crew:rCrew,inventory:rInventory,shop:rShop,log:rLog,victory:rVictory};
+ const html=R[S.screen]();
+ app.innerHTML=html+(S.modal?rModal():'');
+ if(S.screen==='victory'&&!S.vfx){S.vfx=true;confetti();sfx('win');}
+ const f=(S.modal?app.querySelector('.modal [data-focus]'):null)||app.querySelector('[data-focus]');if(f)f.focus({preventScroll:true});
+}
+
+/* ===== Acciones ===== */
+let audioStarted=false;
+app.addEventListener('click',e=>{
+ if(!audioStarted){audioStarted=true;if(SND.music)musicOn();}
+ const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const a=b.dataset.a,d=b.dataset;
+ if(!['pick','tf','oitem','oslot','ml','mr','schip','sblank','check','power','next'].includes(a))sfx('click');
+ switch(a){
+  case 'new':if(loadData())S.modal='reset',render();else startNew();break;
+  case 'reset':S.modal='reset';render();break;
+  case 'reset-yes':S.modal=null;S.vfx=false;startNew();break;
+  case 'continue':{const dd=loadData();S=Object.assign(fresh(),dd||{});S.screen='ship';if(!S.ready.every(Boolean))S.screen='select';render();break;}
+  case 'music':SND.music=!SND.music;saveSnd();SND.music?musicOn():musicOff();render();break;
+  case 'sfx':SND.sfx=!SND.sfx;saveSnd();render();break;
+  case 'dnext':S.dlg.i++;if(S.dlg.i>=S.dlg.lines.length){const f=S.dlgThen;S.dlgThen=null;f();}else render();break;
+  case 'dskip':{const f=S.dlgThen;S.dlgThen=null;f();break;}
+  case 'ready':S.ready[+d.i]=!S.ready[+d.i];if(S.ready[+d.i])sfx('ok');save();render();break;
+  case 'board':teamMedal('Tripulación lista');save();dialog(BOARD,()=>go('ship'));break;
+  case 'ship':S.run=null;S.cur=null;go('ship');break;
+  case 'map':S.run=null;S.cur=null;go('map');break;
+  case 'go':go(d.s);break;
+  case 'world':S.run=null;S.cur=null;openWorld(+d.w);break;
+  case 'choose':choose(d.v);break;
+  case 'run':startRun(S.wsel,d.k,+d.i);break;
+  case 'rerun':{const r=S.run;startRun(r.w,r.kind,r.mi);break;}
+  case 'pick':pick(+d.k);break;
+  case 'tf':pickTF(d.v==='true');break;
+  case 'oitem':ordTap(+d.k);break;
+  case 'oslot':ordSlot(+d.k);break;
+  case 'ml':matchL(+d.k);break;
+  case 'mr':matchR(+d.k);break;
+  case 'schip':seqChip(+d.k);break;
+  case 'sblank':seqBlank(+d.k);break;
+  case 'check':check();break;
+  case 'retry':retry();break;
+  case 'next':next();break;
+  case 'fail':failRun();break;
+  case 'power':usePower(+d.i);break;
+  case 'leave':S.modal='leave';render();break;
+  case 'leave-yes':{const w=S.run.w;S.modal=null;S.run=null;S.cur=null;save();openWorld(w);break;}
+  case 'close':S.modal=null;render();break;
+  case 'csel':S.csel=+d.i;render();break;
+  case 'gear':S.gear[d.g]=!S.gear[d.g];save();render();break;
+  case 'buy':{const s=SHOP.find(x=>x.id===d.id);if(!s||S.coins<s.price)break;S.coins-=s.price;if(s.id==='recarga')S.players.forEach(p=>p.charges++);if(s.id==='escudo')S.shieldNext=true;if(s.kind==='gear'){S.owned[s.id]=true;S.gear[s.id]=true;}sfx('coin');toast(`Compraron: ${s.name}`,'#ffc94a');save();render();break;}
+ }
+});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&S.modal){S.modal=null;render();return;}
+ if(S.screen!=='play'||!S.cur||S.modal||S.cur.state!=='ask'||e.ctrlKey||e.metaKey||e.altKey)return;
+ const n=parseInt(e.key,10);if(!(n>=1&&n<=5))return;const ch=S.cur.ch;
+ if(['mc','rid','sit'].includes(ch.t)&&S.cur.order[n-1]!=null)pick(S.cur.order[n-1]);
+ if(ch.t==='tf'&&n<=2)pickTF(n===1);
+});
+render();
+
+</script>
+</body>
+</html>
